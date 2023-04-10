@@ -29,7 +29,7 @@ const AdminLogin = () => {
       dispatch(setAdminToken(response?.data?.token));
       navigate("/dashboard/products");
     }
-  }, [response.isSuccess]);
+  }, [response.isSuccess, navigate, response?.data?.token, dispatch]);
   return (
     <div className="bg-black1 h-screen flex justify-center items-center">
       <form

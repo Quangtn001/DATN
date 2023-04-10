@@ -5,6 +5,7 @@ const connect = require("./config/db");
 const app = express();
 const userRoutes = require("./routes/userRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
+const productRoutes = require("./routes/productRoutes");
 // database connection
 connect();
 app.use(cors());
@@ -18,7 +19,7 @@ app.get("/", (req, res) => {
 // user routes
 app.use("/api", userRoutes);
 app.use("/api", categoryRoutes);
-// app.use("/api", productRoutes);
+app.use("/api", productRoutes);
 // app.use("/api", paymentRoutes);
 // app.use("/api", orderRoutes);
 

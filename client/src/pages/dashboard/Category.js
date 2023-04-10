@@ -1,18 +1,43 @@
 import React, { useEffect } from "react";
 import Wrapper from "./Wrapper";
 import ScreenHeader from "../../components/ScreenHeader";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { clearMessage, setSuccess } from "../../store/reducers/globalReducer";
+import {
+  useGetQuery,
+  useDeleteCategoryMutation,
+} from "../../store/services/categoryService";
+import Spinner from "../../components/Spinner";
+import Pagination from "../../components/Pagination";
 const Category = () => {
+  let { page } = useParams();
+  if (!page) {
+    page = 1;
+  }
   const { success } = useSelector((state) => state.globalReducer);
   console.log(success);
   const dispatch = useDispatch();
+  const { data = [], isFetching } = useGetQuery(page);
+  // delete category
+  const [removeCategory, response] = useDeleteCategoryMutation();
+  console.log(data);
+  const deleteCat = (id) => {
+    if (window.confirm("Are you really want to delete the category?")) {
+      removeCategory(id);
+    }
+  };
+  useEffect(() => {
+    if (response.isSuccess) {
+      dispatch(setSuccess(response?.data?.message));
+    }
+  }, [response?.data?.message, dispatch, response.isSuccess]);
+
   useEffect(() => {
     return () => {
       dispatch(clearMessage());
     };
-  }, []);
+  }, [dispatch]);
   return (
     <Wrapper>
       <ScreenHeader>
@@ -21,6 +46,62 @@ const Category = () => {
         </Link>
       </ScreenHeader>
       {success && <div className="alert-success">{success}</div>}
+      {!isFetching ? (
+        data?.categories?.length > 0 && (
+          <>
+            <div>
+              <table className="w-full bg-gray-900 rounded-md">
+                <thead>
+                  <tr className="border-b border-gray-800 text-left">
+                    <th className="p-3 uppercase text-sm font-medium text-gray-100">
+                      name
+                    </th>
+                    <th className="p-3 uppercase text-sm font-medium text-gray-100">
+                      <i className="bi bi-pencil-square"></i> edit
+                    </th>
+                    <th className="p-3 uppercase text-sm font-medium text-gray-100">
+                      <i className="bi bi-trash"></i>delete
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data?.categories?.map((category) => (
+                    <tr key={category._id} className="odd:bg-gray-800">
+                      <td className="p-3 capitalize text-sm font-normal text-gray-400">
+                        {category.name}
+                      </td>
+                      <td className="p-3 capitalize text-sm font-normal text-gray-400">
+                        <Link
+                          to={`/dashboard/update-category/${category._id}`}
+                          className="btn btn-warning"
+                        >
+                          <i className="bi bi-pencil-square"></i> edit
+                        </Link>
+                      </td>
+                      <td className="p-3 capitalize text-sm font-normal text-gray-400">
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => deleteCat(category._id)}
+                        >
+                          <i className="bi bi-trash"></i> delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <Pagination
+              page={parseInt(page)}
+              perPage={data.perPage}
+              count={data.count}
+              path="dashboard/categories"
+            />
+          </>
+        )
+      ) : (
+        <Spinner />
+      )}
     </Wrapper>
   );
 };

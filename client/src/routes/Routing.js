@@ -7,6 +7,8 @@ import Private from "./Private.js";
 import Public from "./Public";
 import Category from "../pages/dashboard/Category";
 import CreateCategory from "../pages/dashboard/CreateCategory";
+import UpdateCategory from "../pages/dashboard/UpdateCategory";
+import CreateProduct from "../pages/dashboard/CreateProduct";
 const Routing = () => {
   return (
     <BrowserRouter>
@@ -31,7 +33,23 @@ const Routing = () => {
             }
           />
           <Route
+            path="products/:page"
+            element={
+              <Private>
+                <Products />
+              </Private>
+            }
+          />
+          <Route
             path="categories"
+            element={
+              <Private>
+                <Category />
+              </Private>
+            }
+          />
+          <Route
+            path="categories/:page"
             element={
               <Private>
                 <Category />
@@ -43,6 +61,22 @@ const Routing = () => {
             element={
               <Private>
                 <CreateCategory />
+              </Private>
+            }
+          />
+          <Route
+            path="update-category/:id"
+            element={
+              <Private>
+                <UpdateCategory />
+              </Private>
+            }
+          />
+          <Route
+            path="create-product"
+            element={
+              <Private>
+                <CreateProduct />
               </Private>
             }
           />
