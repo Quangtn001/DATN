@@ -17,6 +17,9 @@ import { Dashboard } from "../pages/users/Dashboard";
 import UserRoute from "./UserRoute";
 import UserAuthRoute from "./UserAuthRoute";
 import CatProduct from "../pages/Home/CatProduct";
+import ProductDetails from "../pages/Home/ProductDetails";
+import SearchProducts from "../pages/Home/SearchProducts";
+import Cart from "../pages/Home/Cart";
 const Routing = () => {
   return (
     <BrowserRouter>
@@ -24,6 +27,12 @@ const Routing = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/cat-products/:name" element={<CatProduct />} />
         <Route path="/cat-products/:name/:page" element={<CatProduct />} />
+        <Route path="/product/:id" element={<ProductDetails />} />
+        <Route
+          path="/search-products/:keyword/:page"
+          element={<SearchProducts />}
+        />{" "}
+        <Route path="/cart" element={<Cart />} />
         <Route element={<UserAuthRoute />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -31,7 +40,6 @@ const Routing = () => {
         <Route element={<UserRoute />}>
           <Route path="/user" element={<Dashboard />} />
         </Route>
-
         <Route path="auth">
           <Route
             path="admin-login"
