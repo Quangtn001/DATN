@@ -9,6 +9,7 @@ import Category from "../pages/dashboard/Category";
 import CreateCategory from "../pages/dashboard/CreateCategory";
 import UpdateCategory from "../pages/dashboard/UpdateCategory";
 import CreateProduct from "../pages/dashboard/CreateProduct";
+import EditProduct from "../pages/dashboard/EditProduct";
 const Routing = () => {
   return (
     <BrowserRouter>
@@ -37,6 +38,14 @@ const Routing = () => {
             element={
               <Private>
                 <Products />
+              </Private>
+            }
+          />
+          <Route
+            path="edit-product/:id"
+            element={
+              <Private>
+                <EditProduct />
               </Private>
             }
           />
