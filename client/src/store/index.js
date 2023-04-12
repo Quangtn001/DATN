@@ -4,11 +4,13 @@ import authReducer from "./reducers/authReducer.js";
 import globalReducer from "./reducers/globalReducer.js";
 import categoryService from "./services/categoryService.js";
 import productService from "./services/productService.js";
+import homeProducts from "./services/homeProducts.js";
 const Store = configureStore({
   reducer: {
     [authService.reducerPath]: authService.reducer,
     [categoryService.reducerPath]: categoryService.reducer,
     [productService.reducerPath]: productService.reducer,
+    [homeProducts.reducerPath]: homeProducts.reducer,
     authReducer: authReducer,
     globalReducer: globalReducer,
   },
@@ -17,6 +19,7 @@ const Store = configureStore({
       authService.middleware,
       categoryService.middleware,
       productService.middleware,
+      homeProducts.middleware,
     ]),
 });
 export default Store;

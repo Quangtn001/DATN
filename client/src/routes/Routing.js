@@ -10,10 +10,28 @@ import CreateCategory from "../pages/dashboard/CreateCategory";
 import UpdateCategory from "../pages/dashboard/UpdateCategory";
 import CreateProduct from "../pages/dashboard/CreateProduct";
 import EditProduct from "../pages/dashboard/EditProduct";
+import { HomePage } from "../pages/Home/HomePage";
+import Login from "../pages/Home/auth/Login";
+import Register from "../pages/Home/auth/Register";
+import { Dashboard } from "../pages/users/Dashboard";
+import UserRoute from "./UserRoute";
+import UserAuthRoute from "./UserAuthRoute";
+import CatProduct from "../pages/Home/CatProduct";
 const Routing = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/cat-products/:name" element={<CatProduct />} />
+        <Route path="/cat-products/:name/:page" element={<CatProduct />} />
+        <Route element={<UserAuthRoute />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
+        <Route element={<UserRoute />}>
+          <Route path="/user" element={<Dashboard />} />
+        </Route>
+
         <Route path="auth">
           <Route
             path="admin-login"
