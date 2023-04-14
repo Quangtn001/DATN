@@ -10,6 +10,7 @@ import Quantity from "./Quantity";
 import toast, { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { addCart } from "../../store/reducers/cartReducer";
+import { AiFillStar } from "react-icons/ai";
 const DetailsCard = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const inc = () => {
@@ -43,6 +44,38 @@ const DetailsCard = ({ product }) => {
       return;
     }
   };
+  let result = 0;
+  let one = 0,
+    two = 0,
+    three = 0,
+    four = 0,
+    five = 0,
+    total = 0;
+  if (product?.reviews?.length > 0) {
+    product?.reviews?.forEach((item) => {
+      if (item.rating === 1) {
+        one += 1;
+      }
+      if (item.rating === 2) {
+        two += 1;
+      }
+      if (item.rating === 3) {
+        three += 1;
+      }
+      if (item.rating === 4) {
+        four += 1;
+      }
+      if (item.rating === 5) {
+        five += 1;
+      }
+    });
+    total = one + two + three + four + five;
+    result = (1 * one + 2 * two + 3 * three + 4 * four + 5 * five) / total;
+  } else {
+    total = 0;
+    result = 0;
+  }
+  const finalResult = parseFloat(result).toFixed(1);
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -70,6 +103,13 @@ const DetailsCard = ({ product }) => {
           <span className="text-xl line-through text-gray-500">
             {currency.format(product.price, { code: "USD" })}
           </span>
+        </div>
+        <div className="flex items-center">
+          <div className="flex items-center space-x-2 mb-1">
+            <span>{finalResult}</span>
+            <AiFillStar color="orange" />
+            <span>({total})</span>
+          </div>
         </div>
         <div className="flex -mx-3 items-center">
           <div className="w-full sm:w-6/12 p-3">

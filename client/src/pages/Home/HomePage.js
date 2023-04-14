@@ -6,7 +6,6 @@ import { useRandomCategoriesQuery } from "../../store/services/categoryService";
 import HomeProduct from "../../components/Home/HomeProduct";
 export const HomePage = () => {
   const { data, isFetching } = useRandomCategoriesQuery();
-  console.log(data, isFetching);
   return (
     <>
       <NavBar />

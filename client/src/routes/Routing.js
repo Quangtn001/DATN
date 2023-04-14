@@ -20,6 +20,10 @@ import CatProduct from "../pages/Home/CatProduct";
 import ProductDetails from "../pages/Home/ProductDetails";
 import SearchProducts from "../pages/Home/SearchProducts";
 import Cart from "../pages/Home/Cart";
+import Orders from "../pages/dashboard/Orders";
+import OrderDetails from "../pages/dashboard/OrderDetails";
+import UserOrder from "../pages/users/UserOrder";
+import UserOrderDetails from "../pages/users/UserOrderDetails";
 const Routing = () => {
   return (
     <BrowserRouter>
@@ -39,6 +43,12 @@ const Routing = () => {
         </Route>
         <Route element={<UserRoute />}>
           <Route path="/user" element={<Dashboard />} />
+          <Route path="/orders" element={<UserOrder />} />
+          <Route path="/orders/:page" element={<UserOrder />} />
+          <Route
+            path="/user-order-details/:id"
+            element={<UserOrderDetails />}
+          />
         </Route>
         <Route path="auth">
           <Route
@@ -115,6 +125,9 @@ const Routing = () => {
               </Private>
             }
           />
+          <Route path="orders" element={<Orders />} />
+          <Route path="orders/:page" element={<Orders />} />
+          <Route path="order-details/:id" element={<OrderDetails />} />
         </Route>
       </Routes>
     </BrowserRouter>

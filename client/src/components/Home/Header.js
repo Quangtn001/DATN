@@ -10,6 +10,7 @@ const Header = ({ children }) => {
         <div className="my-container flex-y h-[400px]">
           <h1 className="header-heading">{children}</h1>
         </div>
+        <hr />
       </div>
     </motion.header>
   );

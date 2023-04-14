@@ -1,15 +1,34 @@
-import React from "react";
-// import toast, { Toaster } from "react-hot-toast";
+import React, { useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import Header from "../../components/Home/Header";
 import AccountList from "../../components/Home/AccountList";
 import NavBar from "../../components/Home/NavBar";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import { useVerifyPaymentQuery } from "../../store/services/paymentService";
+import { emptyCart } from "../../store/reducers/cartReducer";
 export const Dashboard = () => {
   const { user } = useSelector((state) => state.authReducer);
+  const [params] = useSearchParams();
+  const id = params.get("session_id");
+  const { data, isSuccess } = useVerifyPaymentQuery(id, {
+    skip: id ? false : true,
+  });
+  console.log(data);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (isSuccess) {
+      localStorage.removeItem("cart");
+      toast.success(data.msg);
+      dispatch(emptyCart());
+      navigate("/user");
+    }
+  }, [isSuccess, dispatch, navigate]);
   return (
     <>
       <NavBar />
-      {/* <Toaster position="top-right" reverseOrder={false} /> */}
+      <Toaster position="top-right" reverseOrder={false} />
       <div className="mt-[70px]">
         <Header>my account</Header>
         <div className="my-container mt-[40px]">

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NavBar from "../../components/Home/NavBar";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { discount } from "../../utils/discount";
 import currency from "currency-formatter";
@@ -11,9 +12,13 @@ import {
   decQuantity,
   removeItem,
 } from "../../store/reducers/cartReducer";
+
+// import { Link } from "react-router-dom";
+import { useSendPaymentMutation } from "../../store/services/paymentService";
 const Cart = () => {
   const { cart, total } = useSelector((state) => state.cartReducer);
-  console.log(cart);
+  const { userToken, user } = useSelector((state) => state.authReducer);
+  // console.log(cart);
   const dispatch = useDispatch();
   const inc = (id) => {
     dispatch(incQuantity(id));
@@ -27,6 +32,22 @@ const Cart = () => {
       dispatch(removeItem(id));
     }
   };
+
+  const navigate = useNavigate();
+  const [doPayment, response] = useSendPaymentMutation();
+  const paymentHandler = () => {
+    if (userToken) {
+      doPayment({ cart, id: user.id });
+    } else {
+      navigate("/login");
+    }
+  };
+
+  useEffect(() => {
+    if (response?.isSuccess) {
+      window.location.href = response?.data?.url;
+    }
+  }, [response]);
   return (
     <>
       <NavBar />
@@ -108,10 +129,9 @@ const Cart = () => {
                 </span>
                 <button
                   className="btn bg-indigo-600 text-sm font-medium py-2.5"
-                  //   onClick={pay}
+                  onClick={paymentHandler}
                 >
-                  {/* {response.isLoading ? "Loading..." : "checkout"} */}Check
-                  Out
+                  {response.isLoading ? "Loading..." : "checkout"}
                 </button>
               </div>
             </div>

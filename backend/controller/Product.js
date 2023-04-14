@@ -112,7 +112,9 @@ class Product {
   async getProduct(req, res) {
     const { id } = req.params;
     try {
-      const product = await ProductModel.findOne({ _id: id });
+      const product = await ProductModel.findOne({ _id: id }).populate(
+        "reviews"
+      );
       return res.status(200).json(product);
     } catch (error) {
       return res.status(500).json({ error: error.message });
