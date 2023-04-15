@@ -125,7 +125,7 @@ const UserOrderDetails = () => {
                             <td className="td">{data?.details?.quantities}</td>
                             <td className="td">{total}</td>
                             <td className="td">
-                              {data?.details?.status ? "Yes" : "No"}
+                              {data?.details?.status ? "Delivering" : "No"}
                             </td>
                           </tr>
                         </tbody>

@@ -131,8 +131,11 @@ const Cart = () => {
                   className="btn bg-indigo-600 text-sm font-medium py-2.5"
                   onClick={paymentHandler}
                 >
-                  {response.isLoading ? "Loading..." : "checkout"}
+                  {response.isLoading ? "Loading..." : "checkout with card"}
                 </button>
+                {/* <button className="btn bg-indigo-900 text-sm font-medium py-2.5 mx-4">
+                  Cash on Delivery
+                </button> */}
               </div>
             </div>
           </>
