@@ -15,6 +15,7 @@ import {
 
 // import { Link } from "react-router-dom";
 import { useSendPaymentMutation } from "../../store/services/paymentService";
+import Footer from "../../components/Home/Footer";
 const Cart = () => {
   const { cart, total } = useSelector((state) => state.cartReducer);
   const { userToken, user } = useSelector((state) => state.authReducer);
@@ -54,7 +55,7 @@ const Cart = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="my-container mt-28"
+        className="my-container mt-28 h-[57vh]"
       >
         {cart.length > 0 ? (
           <>
@@ -145,6 +146,7 @@ const Cart = () => {
           </div>
         )}
       </motion.div>
+      <Footer />
     </>
   );
 };

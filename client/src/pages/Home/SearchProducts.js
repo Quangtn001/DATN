@@ -5,6 +5,7 @@ import { useSearchProductsQuery } from "../../store/services/homeProducts";
 import Pagination from "../../components/Pagination";
 import ProductSkeleton from "../../components/Home/ProductSkeleton";
 import ProductCard from "../../components/Home/ProductCard";
+import { Link } from "react-router-dom";
 const SearchProducts = () => {
   const { keyword, page = 1 } = useParams();
   const { data, isFetching } = useSearchProductsQuery({
@@ -39,9 +40,14 @@ const SearchProducts = () => {
             />
           </>
         ) : (
-          <p className="alert-danger">
-            No products found for #{keyword} keyword
-          </p>
+          <>
+            <p className="alert-danger">
+              No products found for #{keyword} keyword
+            </p>
+            <Link to="/" className="btn-dark text-white mt-6">
+              Go back home
+            </Link>
+          </>
         )}
       </div>
     </>

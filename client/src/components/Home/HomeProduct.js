@@ -17,7 +17,12 @@ const HomeProduct = ({ category }) => {
             {category.name}
           </span>
           <span className="capitalize">
-            <Link to={`/cat-products/${category.name}`}>see all</Link>
+            <Link
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+              to={`/cat-products/${category.name}`}
+            >
+              see all
+            </Link>
           </span>
         </div>
         <div className="flex flex-wrap -mx-5">

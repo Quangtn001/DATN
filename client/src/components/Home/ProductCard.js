@@ -12,7 +12,6 @@ const ProductCard = ({ product }) => {
     four = 0,
     five = 0,
     total = 0;
-  console.log(product);
   if (product?.reviews?.length > 0) {
     product?.reviews?.forEach((item) => {
       if (item.rating === 1) {

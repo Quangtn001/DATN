@@ -24,6 +24,7 @@ import Orders from "../pages/dashboard/Orders";
 import OrderDetails from "../pages/dashboard/OrderDetails";
 import UserOrder from "../pages/users/UserOrder";
 import UserOrderDetails from "../pages/users/UserOrderDetails";
+import PageNotFound from "../pages/PageNotFound";
 const Routing = () => {
   return (
     <BrowserRouter>
@@ -31,6 +32,10 @@ const Routing = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/cat-products/:name" element={<CatProduct />} />
         <Route path="/cat-products/:name/:page" element={<CatProduct />} />
+        <Route
+          path="/cat-products/:name/:page/:sort/:order"
+          element={<CatProduct />}
+        />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route
           path="/search-products/:keyword/:page"
@@ -129,6 +134,7 @@ const Routing = () => {
           <Route path="orders/:page" element={<Orders />} />
           <Route path="order-details/:id" element={<OrderDetails />} />
         </Route>
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
   );

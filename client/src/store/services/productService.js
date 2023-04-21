@@ -70,6 +70,15 @@ const productService = createApi({
         },
         providesTags: ["products"],
       }),
+      sortProduct: builder.query({
+        query: (price, title) => {
+          return {
+            url: `/sort-product?sort=${price},${title}`,
+            method: "GET",
+          };
+        },
+        providesTags: ["products"],
+      }),
     };
   },
 });
@@ -79,5 +88,6 @@ export const {
   useUpdateProductMutation,
   useGetProductsQuery,
   useGetProductQuery,
+  useSortProductQuery,
 } = productService;
 export default productService;
