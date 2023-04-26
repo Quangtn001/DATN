@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const crypto = require("crypto");
 const UserSchema = mongoose.Schema({
   name: {
     required: true,
@@ -13,15 +13,30 @@ const UserSchema = mongoose.Schema({
     required: true,
     type: String,
   },
-  googleId: {
-    type: String,
-  },
   admin: {
     required: true,
     type: Boolean,
     default: false,
   },
+  passwordChangedAt: {
+    type: String,
+  },
+  passwordResetToken: {
+    type: String,
+  },
+  passwordResetExpires: {
+    type: String,
+  },
 });
 
-const UserModel = mongoose.model("user", UserSchema);
-module.exports = UserModel;
+UserSchema.methods.createPasswordResetToken = async function () {
+  const resetToken = crypto.randomBytes(32).toString("hex");
+  this.passwordResetToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+  this.passwordResetExpires = Date.now() + 15 * 60 * 1000; // 15 minutes
+  return Promise.resolve(resetToken);
+};
+
+module.exports = mongoose.model("user", UserSchema);

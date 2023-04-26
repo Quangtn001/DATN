@@ -5,6 +5,9 @@ const {
   createToken,
   comparePassword,
 } = require("../services/authServices");
+const sendMail = require("../utils/sendMail.js");
+const crypto = require("crypto");
+const bcrypt = require("bcrypt");
 // @route POST /api/register
 // @access Public
 // @desc Create user and return a token
@@ -79,6 +82,70 @@ module.exports.login = async (req, res) => {
   }
 };
 
-module.exports.loginGoogle = async (req, res) => {
-  const { email, name } = req.body;
+module.exports.forgotPassword = async (req, res) => {
+  const { email } = req.body;
+  if (!email) {
+    return res.status(400).json({
+      errors: [{ msg: "Invalid email address", param: "email" }],
+    });
+  }
+
+  const user = await UserModel.findOne({ email });
+  if (!user) {
+    return res.status(400).json({
+      errors: [{ msg: `${email} is not found!`, param: "email" }],
+    });
+  }
+  const resetToken = await user.createPasswordResetToken();
+  await user.save();
+
+  const html = `Xin vui lòng click vào đường dẫn dưới đây để thay đổi mật khẩu của bạn. Link này sẽ hết hạn sau 15 phút! <a href=${process.env.CLIENT}/reset-password/${resetToken}>Click here</a>`;
+
+  const data = {
+    email,
+    html,
+  };
+  try {
+    const rs = await sendMail(data);
+    return res.status(200).json({
+      success: true,
+      rs,
+    });
+  } catch (error) {
+    console.error("Error sending email:", error);
+    return res.status(500).json({
+      success: false,
+      error: "Error sending email",
+    });
+  }
+};
+
+module.exports.resetPassword = async (req, res) => {
+  const { password, token } = req.body;
+  const passwordResetToken = crypto
+    .createHash("sha256")
+    .update(token)
+    .digest("hex");
+  const user = await UserModel.findOne({
+    passwordResetToken,
+    passwordResetExpires: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    return res.status(400).json({
+      errors: [{ msg: `Invalid token` }],
+    });
+  }
+  const saltRounds = 10;
+  const hashedPassword = await bcrypt.hash(password, saltRounds);
+  user.password = hashedPassword;
+  user.passwordResetToken = undefined;
+  user.passwordResetExpires = undefined;
+  user.passwordChangedAt = Date.now();
+  await user.save();
+
+  return res.status(200).json({
+    success: user ? true : false,
+    message: user ? "Updated password" : "Something went wrong!",
+  });
 };

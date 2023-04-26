@@ -8,8 +8,8 @@ import { setUserToken } from "../../../store/reducers/authReducer";
 import { useDispatch } from "react-redux";
 import { useForm } from "../../../hooks/Form";
 import { showError } from "../../../utils/ShowError";
-import { LoginSocialGoogle } from "reactjs-social-login";
-import { GoogleLoginButton } from "react-social-login-buttons";
+// import { LoginSocialGoogle } from "reactjs-social-login";
+// import { GoogleLoginButton } from "react-social-login-buttons";
 const Login = () => {
   const [errors, setErrors] = useState([]);
   const { state, onChange } = useForm({
@@ -97,6 +97,14 @@ const Login = () => {
                 )}
               </div>
               <div className="mb-4">
+                <Link
+                  to="/forgot-password"
+                  className="flex justify-end underline"
+                >
+                  Forgot Password?
+                </Link>
+              </div>
+              <div className="mb-4">
                 <input
                   type="submit"
                   value={`${response.isLoading ? "Loading..." : "sign in"}`}
@@ -104,7 +112,7 @@ const Login = () => {
                   disabled={response.isLoading ? true : false}
                 />
               </div>
-              <div className="mb-4">
+              {/* <div className="mb-4">
                 <LoginSocialGoogle
                   client_id="387544814025-qenvinemfssi8cl25k36in6o49k776m0.apps.googleusercontent.com"
                   scope="openid profile email"
@@ -119,7 +127,7 @@ const Login = () => {
                 >
                   <GoogleLoginButton />
                 </LoginSocialGoogle>
-              </div>
+              </div> */}
               <div>
                 <p>
                   Don't have an account ?{" "}

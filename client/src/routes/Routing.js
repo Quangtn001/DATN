@@ -25,11 +25,15 @@ import OrderDetails from "../pages/dashboard/OrderDetails";
 import UserOrder from "../pages/users/UserOrder";
 import UserOrderDetails from "../pages/users/UserOrderDetails";
 import PageNotFound from "../pages/PageNotFound";
+import ForgotPassword from "../pages/Home/auth/ForgotPassword";
+import ResetPassword from "../pages/Home/auth/ResetPassword";
 const Routing = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password/:id" element={<ResetPassword />} />
         <Route path="/cat-products/:name" element={<CatProduct />} />
         <Route path="/cat-products/:name/:page" element={<CatProduct />} />
         <Route

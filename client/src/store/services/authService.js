@@ -34,6 +34,20 @@ const authService = createApi({
           };
         },
       }),
+      forgotPassword: builder.mutation({
+        query: ({ email }) => ({
+          url: "/forgot-password",
+          method: "POST",
+          body: { email },
+        }),
+      }),
+      resetPassword: builder.mutation({
+        query: ({ token, password }) => ({
+          url: "/reset-password",
+          method: "PUT",
+          body: { token, password },
+        }),
+      }),
     };
   },
 });
@@ -41,5 +55,7 @@ export const {
   useAuthLoginMutation,
   useUserRegisterMutation,
   useUserLoginMutation,
+  useForgotPasswordMutation,
+  useResetPasswordMutation,
 } = authService;
 export default authService;
