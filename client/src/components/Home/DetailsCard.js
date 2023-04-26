@@ -111,7 +111,7 @@ const DetailsCard = ({ product }) => {
             <span>({total})</span>
           </div>
         </div>
-        <div className="flex -mx-3 items-center">
+        <div className="flex -mx-3 flex-col">
           <div className="w-full sm:w-6/12 p-3">
             <Quantity quantity={quantity} inc={inc} dec={dec} />
           </div>
@@ -122,9 +122,14 @@ const DetailsCard = ({ product }) => {
           </div>
         </div>
         <hr />
-        <h3 className="text-base font-medium capitalize text-gray-600 mb-2 mt-3">
-          description
-        </h3>
+        <div className="flex gap-6">
+          <h3 className="text-base font-medium capitalize text-gray-600 mb-2 mt-3">
+            description
+          </h3>
+          <h3 className="text-base font-medium capitalize text-gray-600 mb-2 mt-3">
+            Review
+          </h3>
+        </div>
         <div className="mt-4 leading-[27px] description">{desc}</div>
       </div>
     </motion.div>

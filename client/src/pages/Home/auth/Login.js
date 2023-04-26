@@ -8,6 +8,8 @@ import { setUserToken } from "../../../store/reducers/authReducer";
 import { useDispatch } from "react-redux";
 import { useForm } from "../../../hooks/Form";
 import { showError } from "../../../utils/ShowError";
+import { LoginSocialGoogle } from "reactjs-social-login";
+import { GoogleLoginButton } from "react-social-login-buttons";
 const Login = () => {
   const [errors, setErrors] = useState([]);
   const { state, onChange } = useForm({
@@ -101,6 +103,22 @@ const Login = () => {
                   className="btn btn-indigo w-full "
                   disabled={response.isLoading ? true : false}
                 />
+              </div>
+              <div className="mb-4">
+                <LoginSocialGoogle
+                  client_id="387544814025-qenvinemfssi8cl25k36in6o49k776m0.apps.googleusercontent.com"
+                  scope="openid profile email"
+                  discoveryDocs="claims_supported"
+                  access_type="offline"
+                  onResolve={({ provider, data }) => {
+                    console.log(provider, data);
+                  }}
+                  onReject={(err) => {
+                    console.log(err);
+                  }}
+                >
+                  <GoogleLoginButton />
+                </LoginSocialGoogle>
               </div>
               <div>
                 <p>

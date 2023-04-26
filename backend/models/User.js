@@ -13,6 +13,9 @@ const UserSchema = mongoose.Schema({
     required: true,
     type: String,
   },
+  googleId: {
+    type: String,
+  },
   admin: {
     required: true,
     type: Boolean,
