@@ -32,19 +32,21 @@ const Search = () => {
       >
         <div className="flex -mx-8 justify-center">
           <div className="w-full sm:w-10/12 md:w-8/12 lg:w-6/12 px-10 mt-10 relative">
-            <input
-              type="text"
-              name=""
-              id=""
-              className="w-full bg-white h-[50px] rounded outline-none pl-5 pr-14"
-              placeholder="Search products...."
-              value={state}
-              onChange={(e) => setState(e.target.value)}
-            />
-            <FiSearch
-              className="absolute top-[13px] right-12 text-2xl text-gray-500 cursor-pointer"
-              onClick={searchProducts}
-            />
+            <form onSubmit={searchProducts}>
+              <input
+                type="text"
+                name=""
+                id=""
+                className="w-full bg-white h-[50px] rounded outline-none pl-5 pr-14"
+                placeholder="Search products...."
+                value={state}
+                onChange={(e) => setState(e.target.value)}
+              />
+              <FiSearch
+                className="absolute top-[13px] right-12 text-2xl text-gray-500 cursor-pointer"
+                onClick={searchProducts}
+              />
+            </form>
           </div>
         </div>
       </motion.div>

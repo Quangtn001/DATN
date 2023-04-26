@@ -82,6 +82,10 @@ a.active {
   @apply text-xl capitalize;
 }
 
+.emoji-404{
+
+  @apply relative animate-bounce
+}
 
 /* Swiper styles */
 .slide {

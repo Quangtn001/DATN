@@ -4,6 +4,7 @@ import Slider from "../../components/Home/Slider";
 import Categories from "../../components/Home/Categories";
 import { useRandomCategoriesQuery } from "../../store/services/categoryService";
 import HomeProduct from "../../components/Home/HomeProduct";
+import Footer from "../../components/Home/Footer";
 export const HomePage = () => {
   const { data, isFetching } = useRandomCategoriesQuery();
   return (
@@ -20,6 +21,7 @@ export const HomePage = () => {
             <HomeProduct category={category} key={category._id} />
           ))}
       </div>
+      <Footer />
     </>
   );
 };
