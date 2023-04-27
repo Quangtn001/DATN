@@ -149,3 +149,47 @@ module.exports.resetPassword = async (req, res) => {
     message: user ? "Updated password" : "Something went wrong!",
   });
 };
+
+module.exports.getAUser = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await UserModel.findById(id);
+    return res.status(200).json(user);
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json("Server internal error!");
+  }
+};
+
+module.exports.getAllUser = async (req, res) => {
+  try {
+    const users = await UserModel.find({ admin: false });
+    return res.status(200).json({ users });
+  } catch (error) {
+    return res.status(500).json("Server internal error!");
+  }
+};
+
+module.exports.deleteUser = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await UserModel.deleteOne({ _id: id });
+    return res.status(200).json({ message: "User has deleted successfully!" });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json("Server internal error!");
+  }
+};
+
+module.exports.updateUser = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const userUpdate = await UserModel.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+    return res.status(200).json(userUpdate);
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json("Server internal error!");
+  }
+};

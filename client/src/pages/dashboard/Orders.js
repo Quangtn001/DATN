@@ -13,7 +13,7 @@ const Orders = () => {
     <Wrapper>
       <ScreenHeader>Orders</ScreenHeader>
       {!isFetching ? (
-        data?.orders?.length > 0 && (
+        data?.orders?.length > 0 ? (
           <>
             <div className="overflow-x-auto">
               <table className="dashboard-table">
@@ -30,11 +30,11 @@ const Orders = () => {
                 <tbody>
                   {data?.orders?.map((order) => (
                     <tr key={order._id}>
-                      <td className="dashboard-td">{order.productId.title}</td>
+                      <td className="dashboard-td">{order.productId?.title}</td>
                       <td className="dashboard-td">{order.quantities}</td>
                       <td className="dashboard-td">
                         <img
-                          src={`/images/${order.productId.image1}`}
+                          src={`/images/${order.productId?.image1}`}
                           alt="image_name"
                           className="w-[35px] h-[35px] md:w-[50px] md:h-[50px] rounded-full object-cover"
                         />
@@ -65,6 +65,8 @@ const Orders = () => {
               path="dashboard/orders"
             />
           </>
+        ) : (
+          "No order"
         )
       ) : (
         <Spinner />

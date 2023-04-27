@@ -3,9 +3,12 @@ import NavBar from "../../../components/Home/NavBar";
 import Header from "../../../components/Home/Header";
 import { motion } from "framer-motion";
 import { useForgotPasswordMutation } from "../../../store/services/authService";
+import { MdKeyboardBackspace } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
+  const navigate = useNavigate();
   const [forgotPassword, { isLoading, isSuccess, isError }] =
     useForgotPasswordMutation();
   const handleSubmit = (e) => {
@@ -17,6 +20,10 @@ const ForgotPassword = () => {
       setEmail("");
     }
   }, [isSuccess, isError]);
+
+  const goback = () => {
+    navigate(-1);
+  };
   return (
     <>
       <NavBar />
@@ -32,7 +39,10 @@ const ForgotPassword = () => {
               onSubmit={handleSubmit}
               className="bg-white rounded-lg -mt-12 border border-gray-200 p-10"
             >
-              <h1 className="heading mb-5">Forgot Password</h1>
+              <div className="flex items-center justify-between font-bold text-3xl cursor-pointer">
+                <h1 className="heading mb-5">Forgot Password</h1>
+                <MdKeyboardBackspace onClick={goback} />
+              </div>
               <div className="mb-4">
                 <label htmlFor="email" className="form-label">
                   email
@@ -42,7 +52,7 @@ const ForgotPassword = () => {
                   name="email"
                   id="email"
                   className="form-input"
-                  placeholder="Please fill your email to reset password..."
+                  placeholder="Please enter your email to reset password..."
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -55,6 +65,7 @@ const ForgotPassword = () => {
                 >
                   {isLoading ? "Submitting..." : "Submit"}
                 </button>
+
                 {isSuccess && (
                   <div className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 font-bold">
                     Check your email for password reset instructions.

@@ -27,6 +27,10 @@ import UserOrderDetails from "../pages/users/UserOrderDetails";
 import PageNotFound from "../pages/PageNotFound";
 import ForgotPassword from "../pages/Home/auth/ForgotPassword";
 import ResetPassword from "../pages/Home/auth/ResetPassword";
+import Profile from "../pages/users/Profile";
+import ContactUs from "../pages/ContactUs";
+import EditProfile from "../pages/users/EditProfile";
+import Customer from "../pages/dashboard/Customer";
 const Routing = () => {
   return (
     <BrowserRouter>
@@ -52,6 +56,8 @@ const Routing = () => {
         </Route>
         <Route element={<UserRoute />}>
           <Route path="/user" element={<Dashboard />} />
+          <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/profile-edit/:id" element={<EditProfile />} />
           <Route path="/orders" element={<UserOrder />} />
           <Route path="/orders/:page" element={<UserOrder />} />
           <Route
@@ -137,8 +143,10 @@ const Routing = () => {
           <Route path="orders" element={<Orders />} />
           <Route path="orders/:page" element={<Orders />} />
           <Route path="order-details/:id" element={<OrderDetails />} />
+          <Route path="customers" element={<Customer />} />
         </Route>
         <Route path="*" element={<PageNotFound />} />
+        <Route path="/contact" element={<ContactUs />} />
       </Routes>
     </BrowserRouter>
   );

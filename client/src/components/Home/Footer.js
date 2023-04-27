@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -49,6 +50,15 @@ const Footer = () => {
                     >
                       Blog
                     </a>
+                  </li>
+                  <li>
+                    <Link
+                      to="/contact"
+                      className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
+                      href="https://blog.creative-tim.com?ref=njs-profile"
+                    >
+                      Contact Us
+                    </Link>
                   </li>
                 </ul>
               </div>

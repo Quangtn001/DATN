@@ -9,6 +9,7 @@ import { useVerifyPaymentQuery } from "../../store/services/paymentService";
 import { emptyCart } from "../../store/reducers/cartReducer";
 export const Dashboard = () => {
   const { user } = useSelector((state) => state.authReducer);
+  console.log(user);
   const [params] = useSearchParams();
   const id = params.get("session_id");
   const { data, isSuccess } = useVerifyPaymentQuery(id, {
@@ -37,10 +38,9 @@ export const Dashboard = () => {
               <AccountList />
             </div>
             <div className="w-full md:w-8/12 p-6">
-              <h1 className="heading">name</h1>
-              <span className="block mt-3 capitalize font-medium text-sm">
-                {user?.name}
-              </span>
+              <h1 className="text-4xl font-normal leading-normal mt-0 mb-2 text-zinc-800 bg-white p-4">
+                Well come to " {user?.name} " dashboard
+              </h1>
             </div>
           </div>
         </div>
