@@ -8,7 +8,6 @@ const Orders = () => {
   let { page } = useParams();
   page = page ? page : 1;
   const { data, isFetching } = useGetOrdersQuery(page);
-  console.log(data);
   return (
     <Wrapper>
       <ScreenHeader>Orders</ScreenHeader>

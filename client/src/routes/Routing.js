@@ -31,6 +31,7 @@ import Profile from "../pages/users/Profile";
 import ContactUs from "../pages/ContactUs";
 import EditProfile from "../pages/users/EditProfile";
 import Customer from "../pages/dashboard/Customer";
+import Checkout from "../pages/Home/Checkout";
 const Routing = () => {
   return (
     <BrowserRouter>
@@ -40,6 +41,7 @@ const Routing = () => {
         <Route path="/reset-password/:id" element={<ResetPassword />} />
         <Route path="/cat-products/:name" element={<CatProduct />} />
         <Route path="/cat-products/:name/:page" element={<CatProduct />} />
+        <Route path="/checkout" element={<Checkout />} />
         <Route
           path="/cat-products/:name/:page/:sort/:order"
           element={<CatProduct />}

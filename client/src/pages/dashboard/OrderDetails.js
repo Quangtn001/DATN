@@ -18,7 +18,6 @@ const OrderDetails = () => {
   const { id } = useParams();
   const componentRef = useRef();
   const { data, isFetching } = useDetailsQuery(id);
-  console.log(data);
   const total =
     discount(
       data?.details?.productId?.price,

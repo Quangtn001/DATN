@@ -1,6 +1,7 @@
 const { validationResult } = require("express-validator");
 const OrderModel = require("../models/OrderModel");
 const ProductModel = require("../models/ProductModel");
+const UserModel = require("../models/User");
 const Reviews = require("../models/Reviews");
 class Orders {
   async getOrders(req, res) {
@@ -16,7 +17,6 @@ class Orders {
         .skip(skip)
         .limit(perPage)
         .sort({ createdAt: -1 });
-      console.log(response);
       return res.status(200).json({ orders: response, perPage, count });
     } catch (error) {
       console.log(error.message);
@@ -80,6 +80,14 @@ class Orders {
       }
     } else {
       return res.status(400).json({ errors: errors.array() });
+    }
+  }
+  async createOrder(req, res) {
+    try {
+      const order = await OrderModel.create(req.body);
+      res.status(201).json(order);
+    } catch (err) {
+      res.status(400).json({ message: err.message });
     }
   }
 }

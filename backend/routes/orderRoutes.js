@@ -3,7 +3,7 @@ const Orders = require("../controller/OrderController");
 const Authorization = require("../services/Authorization");
 const ratingValidations = require("../validations/ratingValidations");
 const router = Router();
-router.get("/order-cod", Authorization.authorized);
+router.post("/order-cod", Authorization.authorized, Orders.createOrder);
 router.get("/orders", Authorization.authorized, Orders.getOrders);
 router.get("/order-details/:id", Authorization.authorized, Orders.orderDetails);
 router.put("/order-update", Authorization.authorized, Orders.updateOrder);

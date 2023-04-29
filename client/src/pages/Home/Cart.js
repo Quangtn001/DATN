@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import NavBar from "../../components/Home/NavBar";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { discount } from "../../utils/discount";
 import currency from "currency-formatter";
@@ -134,9 +134,12 @@ const Cart = () => {
                 >
                   {response.isLoading ? "Loading..." : "checkout with card"}
                 </button>
-                {/* <button className="btn bg-indigo-900 text-sm font-medium py-2.5 mx-4">
+                <Link
+                  to="/checkout"
+                  className="btn bg-indigo-900 text-sm font-medium py-2.5 mx-4"
+                >
                   Cash on Delivery
-                </button> */}
+                </Link>
               </div>
             </div>
           </>
