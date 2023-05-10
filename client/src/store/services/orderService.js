@@ -42,10 +42,11 @@ const orderService = createApi({
         invalidatesTags: ["orders"],
       }),
       createOrder: builder.mutation({
-        query: (id) => {
+        query: (body) => {
           return {
             url: `/order-cod`,
             method: "POST",
+            body,
           };
         },
         invalidatesTags: ["orders"],

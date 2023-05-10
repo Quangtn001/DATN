@@ -166,6 +166,7 @@ module.exports.getAllUser = async (req, res) => {
     const users = await UserModel.find({ admin: false });
     return res.status(200).json({ users });
   } catch (error) {
+    console.log(error);
     return res.status(500).json("Server internal error!");
   }
 };

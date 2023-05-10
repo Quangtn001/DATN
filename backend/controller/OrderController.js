@@ -84,10 +84,25 @@ class Orders {
   }
   async createOrder(req, res) {
     try {
-      const order = await OrderModel.create(req.body);
+      // Retrieve order information from request body
+      const { productId, userId, quantities, address } = req.body;
+
+      // Create a new order using the OrderModel schema
+      const order = new OrderModel({
+        productId,
+        userId,
+        quantities,
+        address,
+      });
+
+      // Save the new order to the database
+      await order.save();
+
+      // Send a response with the saved order object
       res.status(201).json(order);
-    } catch (err) {
-      res.status(400).json({ message: err.message });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Server Error" });
     }
   }
 }

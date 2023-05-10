@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useForgotPasswordMutation } from "../../../store/services/authService";
 import { MdKeyboardBackspace } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -26,6 +27,10 @@ const ForgotPassword = () => {
   };
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Quên mật khẩu</title>
+      </Helmet>
       <NavBar />
       <div className="mt-[70px] pb-[80px]">
         <Header>Forgot Password</Header>

@@ -8,6 +8,7 @@ import { setUserToken } from "../../../store/reducers/authReducer";
 import { useDispatch } from "react-redux";
 import { useForm } from "../../../hooks/Form";
 import { showError } from "../../../utils/ShowError";
+import { Helmet } from "react-helmet";
 // import { LoginSocialGoogle } from "reactjs-social-login";
 // import { GoogleLoginButton } from "react-social-login-buttons";
 const Login = () => {
@@ -40,6 +41,10 @@ const Login = () => {
 
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Đăng nhập</title>
+      </Helmet>
       <NavBar />
       <div className="mt-[70px] pb-[80px]">
         <Header>sign in</Header>

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import jwtDecode from "jwt-decode";
+
 const customerToken = localStorage.getItem("userToken");
 
 function verifyToken(keyName) {
@@ -39,7 +40,6 @@ const authReducer = createSlice({
       } else if (payload === "userToken") {
         state.userToken = null;
         state.user = null;
-        localStorage.clear();
       }
     },
   },

@@ -4,6 +4,7 @@ import Header from "../../../components/Home/Header";
 import { motion } from "framer-motion";
 import { useResetPasswordMutation } from "../../../store/services/authService";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
@@ -27,6 +28,10 @@ const ResetPassword = () => {
 
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Reset</title>
+      </Helmet>
       <NavBar />
       <div className="mt-[70px] pb-[80px]">
         <Header>Reset Password</Header>

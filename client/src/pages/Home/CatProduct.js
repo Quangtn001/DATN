@@ -9,6 +9,7 @@ import ProductCard from "../../components/Home/ProductCard";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Home/Footer";
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 
 const CatProduct = () => {
   const navigate = useNavigate();
@@ -43,6 +44,10 @@ const CatProduct = () => {
 
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Sản phẩm</title>
+      </Helmet>
       <NavBar />
 
       <div className="mt-[70px]">

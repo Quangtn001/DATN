@@ -23,6 +23,7 @@ const Customer = () => {
   } = useAllUsersQuery(page, {
     enabled: !isDeleted, // disable the query when isDeleted is true
   });
+  console.log("Data", data);
   const dispatch = useDispatch();
 
   const [removeUser, response] = useDeleteUserMutation();

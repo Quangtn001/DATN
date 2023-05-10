@@ -21,7 +21,7 @@ router.post("/forgot-password", forgotPassword);
 router.put("/reset-password", resetPassword);
 router.get("/user/:id", [Authorization.authorized], getAUser);
 router.put("/user/:id", [Authorization.authorized], updateUser);
-router.get("/all-user", [Authorization.authorized], getAllUser);
+router.get("/all-user", getAllUser);
 router.delete("/delete-user/:id", [Authorization.authorized], deleteUser);
 
 module.exports = router;

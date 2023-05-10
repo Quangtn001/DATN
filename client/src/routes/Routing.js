@@ -59,7 +59,7 @@ const Routing = () => {
         <Route element={<UserRoute />}>
           <Route path="/user" element={<Dashboard />} />
           <Route path="/profile/:id" element={<Profile />} />
-          <Route path="/profile-edit/:id" element={<EditProfile />} />
+          <Route path="/profile-edit/:editId" element={<EditProfile />} />
           <Route path="/orders" element={<UserOrder />} />
           <Route path="/orders/:page" element={<UserOrder />} />
           <Route

@@ -6,6 +6,7 @@ import Pagination from "../../components/Pagination";
 import ProductSkeleton from "../../components/Home/ProductSkeleton";
 import ProductCard from "../../components/Home/ProductCard";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 const SearchProducts = () => {
   const { keyword, page = 1 } = useParams();
   const { data, isFetching } = useSearchProductsQuery({
@@ -14,6 +15,10 @@ const SearchProducts = () => {
   });
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Tìm kiếm - {keyword}</title>
+      </Helmet>
       <NavBar />
       <div className="mt-[70px]">
         <Header>#{keyword}</Header>

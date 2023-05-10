@@ -11,6 +11,7 @@ import Spinner from "../../components/Spinner";
 import { discount } from "../../utils/discount";
 import ReviewForm from "../../components/ReviewForm";
 import DetailsList from "../../components/DetailsList";
+import { Helmet } from "react-helmet";
 const UserOrderDetails = () => {
   const [state, setState] = useState(false);
   const toggleReview = () => {
@@ -31,6 +32,10 @@ const UserOrderDetails = () => {
 
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Chi tiết đơn hàng</title>
+      </Helmet>
       <ReviewForm state={state} data={data} toggleReview={toggleReview} />
       <NavBar />
       <div className="mt-[70px]">

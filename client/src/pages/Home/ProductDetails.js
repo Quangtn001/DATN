@@ -5,11 +5,16 @@ import { FiChevronRight } from "react-icons/fi";
 import { useGetProductQuery } from "../../store/services/productService";
 import DetailsCard from "../../components/Home/DetailsCard";
 import Loading from "../../components/Home/Loading";
+import { Helmet } from "react-helmet";
 const ProductDetails = () => {
   const { id } = useParams();
   const { data, isFetching } = useGetProductQuery(id);
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Chi tiết sản phẩm</title>
+      </Helmet>
       <NavBar />
       <div className="my-container mt-24">
         {isFetching ? (

@@ -5,33 +5,36 @@ import currency from "currency-formatter";
 import { useCreateOrderMutation } from "../../store/services/orderService";
 import { useNavigate } from "react-router-dom";
 const Checkout = () => {
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState({});
   const { cart, total } = useSelector((state) => state.cartReducer);
-  const { userToken, user } = useSelector((state) => state.authReducer);
-  const [createOrder] = useCreateOrderMutation();
+
+  const { user } = useSelector((state) => state.auth);
+
+  const [createOrder, { isLoading, isSuccess }] = useCreateOrderMutation();
   const navigate = useNavigate();
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const form = event.target;
-    const orderItems = cart.map((item) => ({
-      productId: item._id,
-      userId: user.id,
-      quantities: item.quantity,
-    }));
+  const handlePlaceOrder = async () => {
+    const orderItems = cart.map((item) => {
+      return {
+        productId: item._id,
+        quantities: item.quantity,
+      };
+    });
 
     const order = {
       orderItems,
-      address: {
-        city: form.city.value,
-        country: form.country.value,
-        state: form.state.value,
-      },
+      address,
     };
-    console.log(order);
-    if (userToken) {
-      createOrder(order);
-    } else {
-      navigate("/login");
+
+    if (user) {
+      order.userId = user.id;
+    }
+
+    await createOrder(order);
+
+    // Handle the response
+    if (isSuccess) {
+      // Clear the cart and redirect to the order confirmation page
+      navigate.push("/order-confirmation");
     }
   };
   return (
@@ -44,11 +47,7 @@ const Checkout = () => {
                 Check out - Cash on Delivery
                 <span className="mt-2 block h-1 w-10 bg-teal-600 sm:w-20" />
               </h1>
-              <form
-                action=""
-                className="mt-10 flex flex-col space-y-4"
-                onSubmit={handleSubmit}
-              >
+              <form action="" className="mt-10 flex flex-col space-y-4">
                 <div className="relative">
                   <label
                     htmlFor="city"
@@ -96,11 +95,14 @@ const Checkout = () => {
                     className="block w-full rounded border-gray-300 bg-gray-50 py-3 px-4 pr-10 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-teal-500"
                   />
                 </div>
-
-                <button className="mt-4 inline-flex w-full items-center justify-center rounded bg-teal-600 py-2.5 px-4 text-base font-semibold tracking-wide text-white text-opacity-80 outline-none ring-offset-2 transition hover:text-opacity-100 focus:ring-2 focus:ring-teal-500 sm:text-lg">
-                  Place Order
-                </button>
               </form>
+              <button
+                onClick={handlePlaceOrder}
+                disabled={isLoading}
+                className="mt-4 inline-flex w-full items-center justify-center rounded bg-teal-600 py-2.5 px-4 text-base font-semibold tracking-wide text-white text-opacity-80 outline-none ring-offset-2 transition hover:text-opacity-100 focus:ring-2 focus:ring-teal-500 sm:text-lg"
+              >
+                Place Order
+              </button>
             </div>
           </div>
           <div className="relative col-span-full flex flex-col py-6 pl-8 pr-4 sm:py-12 lg:col-span-4 lg:py-24">

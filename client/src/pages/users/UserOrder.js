@@ -11,6 +11,7 @@ import {
 } from "../../store/services/userOrdersService";
 import { discount } from "../../utils/discount";
 import Pagination from "../../components/Pagination";
+import { Helmet } from "react-helmet";
 const UserOrders = () => {
   let { page } = useParams();
   page = page ? page : 1;
@@ -20,9 +21,13 @@ const UserOrders = () => {
   const orderReceived = (id) => {
     updateOrder(id);
   };
-  console.log(data);
+  console.log(response);
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Danh sách đơn hàng</title>
+      </Helmet>
       <NavBar />
       <div className="mt-[70px]">
         <Header>my orders</Header>

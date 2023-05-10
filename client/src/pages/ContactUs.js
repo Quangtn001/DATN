@@ -1,10 +1,15 @@
 import React from "react";
 import NavBar from "../components/Home/NavBar";
 import Footer from "../components/Home/Footer";
+import { Helmet } from "react-helmet";
 
 const ContactUs = () => {
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Liên hệ</title>
+      </Helmet>
       <NavBar />
       <div className="flex min-h-screen items-center justify-start bg-white">
         <div className="mx-auto w-full max-w-lg">

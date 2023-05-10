@@ -12,7 +12,7 @@ import {
   decQuantity,
   removeItem,
 } from "../../store/reducers/cartReducer";
-
+import { Helmet } from "react-helmet";
 // import { Link } from "react-router-dom";
 import { useSendPaymentMutation } from "../../store/services/paymentService";
 import Footer from "../../components/Home/Footer";
@@ -51,6 +51,10 @@ const Cart = () => {
   }, [response]);
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Cart</title>
+      </Helmet>
       <NavBar />
       <motion.div
         initial={{ opacity: 0 }}

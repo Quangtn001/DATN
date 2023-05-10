@@ -9,6 +9,7 @@ import { setUserToken } from "../../../store/reducers/authReducer";
 import { setSuccess } from "../../../store/reducers/globalReducer";
 import { useForm } from "../../../hooks/Form";
 import { showError } from "../../../utils/ShowError";
+import { Helmet } from "react-helmet";
 const Register = () => {
   const [errors, setErrors] = useState([]);
   const { state, onChange } = useForm({
@@ -48,6 +49,10 @@ const Register = () => {
   ]);
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Đăng Ký</title>
+      </Helmet>
       <NavBar />
       <div className="mt-[70px] pb-[80px]">
         <Header>sign up</Header>

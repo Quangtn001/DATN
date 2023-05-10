@@ -8,12 +8,14 @@ import {
   useUpdateUserMutation,
 } from "../../store/services/authService";
 import Spinner from "../../components/Spinner";
-import { useDispatch } from "react-redux";
+import { Helmet } from "react-helmet";
+// import { useDispatch } from "react-redux";
 const EditProfile = () => {
-  const { id } = useParams();
+  const { editId } = useParams();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { data, isFetching } = useGetUserByIdQuery(id);
+  // const dispatch = useDispatch();
+  const { data, isFetching } = useGetUserByIdQuery(editId);
+  console.log(data);
   const [state, setState] = useState({
     name: "",
     email: "",
@@ -31,17 +33,27 @@ const EditProfile = () => {
   };
 
   const [updateUser, response] = useUpdateUserMutation();
-  const handleUpdate = (e) => {
+  console.log(response);
+  const handleUpdate = async (e) => {
     e.preventDefault();
-    updateUser({ id, name: state.name, email: state.email });
+    await updateUser({
+      id: editId,
+      name: state.name,
+      email: state.email,
+    });
   };
   useEffect(() => {
     if (response?.isSuccess) {
-      navigate(`/`);
+      navigate(`/profile/${editId}`);
     }
-  }, [response?.isSuccess, dispatch, navigate, response?.data?.message]);
+  }, [response?.isSuccess, navigate, editId]);
+
   return (
     <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Sửa thông tin</title>
+      </Helmet>
       <NavBar />
       <div className="mt-[70px]">
         <Header>my account</Header>

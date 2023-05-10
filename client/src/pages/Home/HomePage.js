@@ -5,10 +5,15 @@ import Categories from "../../components/Home/Categories";
 import { useRandomCategoriesQuery } from "../../store/services/categoryService";
 import HomeProduct from "../../components/Home/HomeProduct";
 import Footer from "../../components/Home/Footer";
+import { Helmet } from "react-helmet";
 export const HomePage = () => {
   const { data, isFetching } = useRandomCategoriesQuery();
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Trang chủ</title>
+      </Helmet>
       <NavBar />
       <div className="mt-[70px]">
         <Slider />

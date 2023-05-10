@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useVerifyPaymentQuery } from "../../store/services/paymentService";
 import { emptyCart } from "../../store/reducers/cartReducer";
+import { Helmet } from "react-helmet";
 export const Dashboard = () => {
   const { user } = useSelector((state) => state.authReducer);
   console.log(user);
@@ -25,9 +26,13 @@ export const Dashboard = () => {
       dispatch(emptyCart());
       navigate("/user");
     }
-  }, [isSuccess, dispatch, navigate]);
+  }, [isSuccess, dispatch, navigate, data?.msg]);
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Dashboard</title>
+      </Helmet>
       <NavBar />
       <Toaster position="top-right" reverseOrder={false} />
       <div className="mt-[70px]">
