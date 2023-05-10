@@ -11,6 +11,15 @@ import toast, { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { addCart } from "../../store/reducers/cartReducer";
 import { AiFillStar } from "react-icons/ai";
+import {
+  Tabs,
+  TabsHeader,
+  TabsBody,
+  Tab,
+  TabPanel,
+} from "@material-tailwind/react";
+import Reviews from "./Reviews";
+
 const DetailsCard = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const inc = () => {
@@ -23,9 +32,9 @@ const DetailsCard = ({ product }) => {
   };
 
   const discountPrice = discount(product.price, product.discount);
-  let desc = h2p(product.description);
-  desc = htmlParser(desc);
-  desc = htmlFormat(desc);
+  let descript = h2p(product.description);
+  descript = htmlParser(descript);
+  descript = htmlFormat(descript);
 
   const dispatch = useDispatch();
   const addToCart = () => {
@@ -76,6 +85,21 @@ const DetailsCard = ({ product }) => {
     result = 0;
   }
   const finalResult = parseFloat(result).toFixed(1);
+
+  const [activeTab, setActiveTab] = React.useState("html");
+  const review = <Reviews product={product.reviews} />;
+  const data = [
+    {
+      label: "Description",
+      value: "html",
+      desc: `${descript}`,
+    },
+    {
+      label: "Review",
+      value: "react",
+      desc: review,
+    },
+  ];
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -92,7 +116,7 @@ const DetailsCard = ({ product }) => {
         </div>
       </div>
       <div className="w-full order-1 md:order-2 md:w-6/12 p-5">
-        <h1 className="text-2xl font-bold text-gray-900 capitalize">
+        <h1 className="text-2xl font-bold text-gray-900 capitalize mb-3">
           {product.title}
         </h1>
         <hr />
@@ -121,16 +145,33 @@ const DetailsCard = ({ product }) => {
             </button>
           </div>
         </div>
-        <hr />
-        <div className="flex gap-6">
-          <h3 className="text-base font-medium capitalize text-gray-600 mb-2 mt-3">
-            description
-          </h3>
-          <h3 className="text-base font-medium capitalize text-gray-600 mb-2 mt-3">
-            Review
-          </h3>
-        </div>
-        <div className="mt-4 leading-[27px] description">{desc}</div>
+        <Tabs value={activeTab}>
+          <TabsHeader
+            className="rounded-none border-b border-blue-gray-50 bg-transparent p-0"
+            indicatorProps={{
+              className:
+                "bg-transparent border-b-2 border-blue-500 shadow-none rounded-none",
+            }}
+          >
+            {data.map(({ label, value }) => (
+              <Tab
+                key={value}
+                value={value}
+                onClick={() => setActiveTab(value)}
+                className={activeTab === value ? "text-blue-500 font-bold" : ""}
+              >
+                {label}
+              </Tab>
+            ))}
+          </TabsHeader>
+          <TabsBody>
+            {data.map(({ value, desc }) => (
+              <TabPanel key={value} value={value}>
+                {desc}
+              </TabPanel>
+            ))}
+          </TabsBody>
+        </Tabs>
       </div>
     </motion.div>
   );

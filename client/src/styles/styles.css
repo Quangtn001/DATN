@@ -74,6 +74,10 @@ a.active {
   @apply text-3xl capitalize;
 }
 
+.icon{
+  @apply fill-orange-400
+}
+
 .description h3 {
   @apply text-2xl capitalize;
 }

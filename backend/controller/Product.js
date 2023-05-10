@@ -112,13 +112,15 @@ class Product {
   async getProduct(req, res) {
     const { id } = req.params;
     try {
-      const product = await ProductModel.findOne({ _id: id }).populate(
-        "reviews"
-      );
+      const product = await ProductModel.findOne({ _id: id })
+        .populate("reviews")
+        .populate({
+          path: "reviews",
+          populate: { path: "user", select: "name email" },
+        });
       return res.status(200).json(product);
     } catch (error) {
       return res.status(500).json({ error: error.message });
-      console.log(error.message);
     }
   }
   async updateProduct(req, res) {
@@ -172,6 +174,14 @@ class Product {
         .json({ msg: "Product has been deleted successfully" });
     } catch (error) {
       throw new Error(error.message);
+    }
+  }
+  async getAllProducts(req, res) {
+    try {
+      const products = await ProductModel.find({});
+      return res.status(200).json({ products });
+    } catch (error) {
+      return res.status(500).json("Server internal error!");
     }
   }
 }

@@ -79,6 +79,14 @@ const productService = createApi({
         },
         providesTags: ["products"],
       }),
+      allProducts: builder.query({
+        query: () => {
+          return {
+            url: "allproducts",
+            method: "GET",
+          };
+        },
+      }),
     };
   },
 });
@@ -89,5 +97,6 @@ export const {
   useGetProductsQuery,
   useGetProductQuery,
   useSortProductQuery,
+  useAllProductsQuery,
 } = productService;
 export default productService;

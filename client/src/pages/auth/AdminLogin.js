@@ -14,7 +14,6 @@ const AdminLogin = () => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
   const [login, response] = useAuthLoginMutation();
-  console.log("my res", response);
   const errors = response?.error?.data?.errors
     ? response?.error?.data?.errors
     : [];
@@ -27,7 +26,7 @@ const AdminLogin = () => {
     if (response.isSuccess) {
       localStorage.setItem("admin-token", response?.data?.token);
       dispatch(setAdminToken(response?.data?.token));
-      navigate("/dashboard/products");
+      navigate("/dashboard/categories");
     }
   }, [response.isSuccess, navigate, response?.data?.token, dispatch]);
   return (

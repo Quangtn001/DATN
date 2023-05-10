@@ -32,6 +32,7 @@ import ContactUs from "../pages/ContactUs";
 import EditProfile from "../pages/users/EditProfile";
 import Customer from "../pages/dashboard/Customer";
 import Checkout from "../pages/Home/Checkout";
+import DashboardAdmin from "../pages/dashboard/DashboardAdmin";
 const Routing = () => {
   return (
     <BrowserRouter>
@@ -78,6 +79,14 @@ const Routing = () => {
           />
         </Route>
         <Route path="dashboard">
+          <Route
+            path=""
+            element={
+              <Private>
+                <DashboardAdmin />
+              </Private>
+            }
+          />
           <Route
             path="products"
             element={
