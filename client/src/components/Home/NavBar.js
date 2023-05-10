@@ -57,7 +57,9 @@ const NavBar = () => {
                 )}
               </div>
               <div className="hidden md:flex items-center gap-5 font-medium uppercase ">
-                <Link className="hover:text-violet-600">About Us</Link>
+                <Link to="/about" className="hover:text-violet-600">
+                  About Us
+                </Link>
                 <Link className="hover:text-violet-600" to="/contact">
                   Contact Us
                 </Link>

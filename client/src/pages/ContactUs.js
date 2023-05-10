@@ -2,7 +2,7 @@ import React from "react";
 import NavBar from "../components/Home/NavBar";
 import Footer from "../components/Home/Footer";
 import { Helmet } from "react-helmet";
-
+import { motion } from "framer-motion";
 const ContactUs = () => {
   return (
     <>
@@ -11,7 +11,12 @@ const ContactUs = () => {
         <title>Liên hệ</title>
       </Helmet>
       <NavBar />
-      <div className="flex min-h-screen items-center justify-start bg-white">
+      <motion.div
+        exit={{ opacity: 0 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="flex min-h-screen items-center justify-start bg-white"
+      >
         <div className="mx-auto w-full max-w-lg">
           <h1 className="text-4xl font-medium">Contact us</h1>
           <p className="mt-3">
@@ -62,7 +67,7 @@ const ContactUs = () => {
             </button>
           </form>
         </div>
-      </div>
+      </motion.div>
       <Footer />
     </>
   );

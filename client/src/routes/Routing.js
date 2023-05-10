@@ -33,6 +33,7 @@ import EditProfile from "../pages/users/EditProfile";
 import Customer from "../pages/dashboard/Customer";
 import Checkout from "../pages/Home/Checkout";
 import DashboardAdmin from "../pages/dashboard/DashboardAdmin";
+import AboutUs from "../pages/AboutUs";
 const Routing = () => {
   return (
     <BrowserRouter>
@@ -158,6 +159,7 @@ const Routing = () => {
         </Route>
         <Route path="*" element={<PageNotFound />} />
         <Route path="/contact" element={<ContactUs />} />
+        <Route path="/about" element={<AboutUs />} />
       </Routes>
     </BrowserRouter>
   );
