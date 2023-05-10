@@ -6,6 +6,7 @@ import { useGetProductQuery } from "../../store/services/productService";
 import DetailsCard from "../../components/Home/DetailsCard";
 import Loading from "../../components/Home/Loading";
 import { Helmet } from "react-helmet";
+import Footer from "../../components/Home/Footer";
 const ProductDetails = () => {
   const { id } = useParams();
   const { data, isFetching } = useGetProductQuery(id);
@@ -41,6 +42,7 @@ const ProductDetails = () => {
           </>
         )}
       </div>
+      <Footer />
     </>
   );
 };
