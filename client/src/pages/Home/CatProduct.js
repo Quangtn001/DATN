@@ -26,7 +26,6 @@ const CatProduct = () => {
 
   const { data: allCategoriesData, isFetching: allCategoriesIsFetching } =
     useAllCategoriesQuery();
-  console.log(allCategoriesIsFetching);
 
   const [category, setCategory] = useState(categoryName);
 
@@ -57,10 +56,10 @@ const CatProduct = () => {
       <div className="my-container my-10">
         {catProductIsFetching ? (
           <ProductSkeleton />
-        ) : catProductData.count > 0 ? (
+        ) : catProductData?.count > 0 ? (
           <>
             <p className="text-base font-medium text-gray-700">
-              {catProductData.count} products found in #{name} category
+              {catProductData?.count} products found in #{name} category
             </p>
             <hr />
             <div className="w-full md:w-5/3  p-5 rounded-lg bg-white">

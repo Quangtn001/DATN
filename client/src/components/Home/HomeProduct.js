@@ -5,7 +5,6 @@ import ProductCard from "./ProductCard";
 const HomeProduct = ({ category }) => {
   const { data, isFetching } = useCatProductsQuery({
     name: category.name,
-    page: "",
   });
   return isFetching ? (
     <ProductSkeleton />

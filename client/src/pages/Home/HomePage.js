@@ -15,7 +15,7 @@ export const HomePage = () => {
         <title>Trang chủ</title>
       </Helmet>
       <NavBar />
-      <div className="mt-[70px]">
+      <div>
         <Slider />
       </div>
       <div className="my-container mt-10">

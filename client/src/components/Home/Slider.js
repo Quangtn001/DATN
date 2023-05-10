@@ -1,11 +1,11 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
-import { useRandomCategoriesQuery } from "../../store/services/categoryService";
+import { useAllCategoriesQuery } from "../../store/services/categoryService";
 import Spinner from "../Spinner";
 import { Link } from "react-router-dom";
 const Slider = () => {
-  const { data, isFetching } = useRandomCategoriesQuery();
+  const { data, isFetching } = useAllCategoriesQuery();
   console.log(data, isFetching);
   return isFetching ? (
     <div className="my-container h-[70vh] flex items-center justify-center">
