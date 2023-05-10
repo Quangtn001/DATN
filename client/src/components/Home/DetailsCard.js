@@ -145,9 +145,10 @@ const DetailsCard = ({ product }) => {
             </button>
           </div>
         </div>
+
         <Tabs value={activeTab}>
           <TabsHeader
-            className="rounded-none border-b border-blue-gray-50 bg-transparent p-0"
+            className="rounded-none border-b border-blue-gray-50 bg-transparent p-0 mt-7"
             indicatorProps={{
               className:
                 "bg-transparent border-b-2 border-blue-500 shadow-none rounded-none",
