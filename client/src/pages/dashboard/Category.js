@@ -41,7 +41,10 @@ const Category = () => {
   return (
     <Wrapper>
       <ScreenHeader>
-        <Link to="/dashboard/create-category" className="btn-dark">
+        <Link
+          to="/dashboard/create-category"
+          className="btn btn-warning p-4 font-bold"
+        >
           add categories <i className="bi bi-plus"></i>
         </Link>
       </ScreenHeader>
@@ -50,27 +53,27 @@ const Category = () => {
         data?.categories?.length > 0 && (
           <>
             <div>
-              <table className="w-full bg-gray-900 rounded-md">
+              <table className="w-full bg-gray-200 rounded-md">
                 <thead>
-                  <tr className="border-b border-gray-800 text-left">
-                    <th className="p-3 uppercase text-sm font-medium text-gray-100">
+                  <tr className="border-b bg-gray-200 text-left">
+                    <th className="p-3 uppercase text-lg font-medium text-black">
                       name
                     </th>
-                    <th className="p-3 uppercase text-sm font-medium text-gray-100">
+                    <th className="p-3 uppercase text-lg font-medium text-black">
                       <i className="bi bi-pencil-square"></i> edit
                     </th>
-                    <th className="p-3 uppercase text-sm font-medium text-gray-100">
+                    <th className="p-3 uppercase text-lg font-medium text-black">
                       <i className="bi bi-trash"></i>delete
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {data?.categories?.map((category) => (
-                    <tr key={category._id} className="odd:bg-gray-800">
-                      <td className="p-3 capitalize text-sm font-normal text-gray-400">
+                    <tr key={category._id} className="odd:bg-gray-50">
+                      <td className="p-3 capitalize text-sm font-medium text-black">
                         {category.name}
                       </td>
-                      <td className="p-3 capitalize text-sm font-normal text-gray-400">
+                      <td className="p-3 capitalize text-sm font-medium text-black">
                         <Link
                           to={`/dashboard/update-category/${category._id}`}
                           className="btn btn-warning"
@@ -78,7 +81,7 @@ const Category = () => {
                           <i className="bi bi-pencil-square"></i> edit
                         </Link>
                       </td>
-                      <td className="p-3 capitalize text-sm font-normal text-gray-400">
+                      <td className="p-3 capitalize text-sm font-medium text-black">
                         <button
                           className="btn btn-danger"
                           onClick={() => deleteCat(category._id)}

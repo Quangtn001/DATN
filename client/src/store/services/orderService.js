@@ -41,6 +41,15 @@ const orderService = createApi({
         },
         invalidatesTags: ["orders"],
       }),
+      cancelOrders: builder.mutation({
+        query: (id) => {
+          return {
+            url: `/order-update?id=${id}&status=cancel`,
+            method: "PUT",
+          };
+        },
+        invalidatesTags: ["orders"],
+      }),
       createOrder: builder.mutation({
         query: (body) => {
           return {
@@ -68,5 +77,6 @@ export const {
   useDeliverOrderMutation,
   useCreateOrderMutation,
   useAllOrdersQuery,
+  useCancelOrdersMutation,
 } = orderService;
 export default orderService;

@@ -12,8 +12,9 @@ const orderSchema = Schema(
       type: Map,
     },
     status: {
-      default: false,
-      type: Boolean,
+      type: String,
+      default: "Not Process",
+      enum: ["Not Process", "Processing", "Delivered", "Cancle"],
     },
     received: {
       default: false,

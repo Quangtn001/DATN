@@ -41,21 +41,27 @@ class Orders {
       option = { status: true };
     } else if (status === "received") {
       option = { received: true };
+    } else if (status === "cancel") {
+      option = { cancelled: true };
     }
     try {
       const updatedProduct = await OrderModel.findByIdAndUpdate(id, option, {
         new: true,
       });
-      return res.status(200).json({
-        msg:
-          status === "delivered"
-            ? "Order has delivered"
-            : status === "received" && "Order received",
-      });
+      let msg;
+      if (status === "delivered") {
+        msg = "Order has been delivered.";
+      } else if (status === "received") {
+        msg = "Order has been received.";
+      } else if (status === "cancel") {
+        msg = "Order has been cancelled.";
+      }
+      return res.status(200).json({ updatedProduct, msg });
     } catch (error) {
       return res.status(500).json({ errors: error.message });
     }
   }
+
   async createRating(req, res) {
     const errors = validationResult(req);
     const { rating, message, user, product, id } = req.body;

@@ -10,7 +10,9 @@ const Orders = () => {
   const { data, isFetching } = useGetOrdersQuery(page);
   return (
     <Wrapper>
-      <ScreenHeader>Orders</ScreenHeader>
+      <ScreenHeader>
+        <p className="text-2xl uppercase font-bold">Orders</p>
+      </ScreenHeader>
       {!isFetching ? (
         data?.orders?.length > 0 ? (
           <>
@@ -28,7 +30,10 @@ const Orders = () => {
                 </thead>
                 <tbody>
                   {data?.orders?.map((order) => (
-                    <tr key={order._id}>
+                    <tr
+                      key={order._id}
+                      className="odd:bg-gray-100 even:bg-gray-200"
+                    >
                       <td className="dashboard-td">{order.productId?.title}</td>
                       <td className="dashboard-td">{order.quantities}</td>
                       <td className="dashboard-td">

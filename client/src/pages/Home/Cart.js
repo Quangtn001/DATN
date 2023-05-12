@@ -19,7 +19,6 @@ import Footer from "../../components/Home/Footer";
 const Cart = () => {
   const { cart, total } = useSelector((state) => state.cartReducer);
   const { userToken, user } = useSelector((state) => state.authReducer);
-  // console.log(cart);
   const dispatch = useDispatch();
   const inc = (id) => {
     dispatch(incQuantity(id));
@@ -153,7 +152,8 @@ const Cart = () => {
           </div>
         )}
       </motion.div>
-      <Footer />
+
+      {/* <Footer /> */}
     </>
   );
 };

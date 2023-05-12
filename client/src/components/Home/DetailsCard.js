@@ -23,8 +23,13 @@ import Reviews from "./Reviews";
 const DetailsCard = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const inc = () => {
-    setQuantity(quantity + 1);
+    if (quantity < 20) {
+      setQuantity(quantity + 1);
+    } else {
+      alert("Cannot add more 20 items");
+    }
   };
+
   const dec = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);

@@ -91,6 +91,14 @@ a.active {
   @apply relative animate-bounce
 }
 
+.ql-toolbar.ql-snow{
+  @apply !bg-gray-300 !border-b-2
+
+}
+.ql-editor{
+  @apply !bg-gray-50
+}
+
 /* Swiper styles */
 .slide {
   @apply relative;

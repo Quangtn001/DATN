@@ -18,10 +18,10 @@ const UserOrders = () => {
   const { user } = useSelector((state) => state.authReducer);
   const { data, isFetching } = useGetOrdersQuery({ page, userId: user.id });
   const [updateOrder, response] = useReceivedOrderMutation();
+  console.log("data", data);
   const orderReceived = (id) => {
     updateOrder(id);
   };
-  console.log(response);
   return (
     <>
       <Helmet>
@@ -53,7 +53,7 @@ const UserOrders = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {data?.orders.map((item) => {
+                          {data?.orders?.map((item) => {
                             const total = currency.format(
                               discount(
                                 item.productId.price,

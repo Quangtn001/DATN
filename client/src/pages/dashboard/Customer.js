@@ -54,39 +54,39 @@ const Customer = () => {
   return (
     <Wrapper>
       <ScreenHeader>
-        <h1 className="btn-dark w-[150px]">All customers</h1>
+        <h1 className="btn btn-warning font-bold w-48">All customers</h1>
       </ScreenHeader>
       {success && <div className="alert-success">{success}</div>}
       {!isFetching ? (
         data?.users?.length > 0 ? (
           <>
             <div>
-              <table className="w-full bg-gray-900 rounded-md">
+              <table className="w-full bg-gray-100 rounded-md">
                 <thead>
                   <tr className="border-b border-gray-800 text-left">
-                    <th className="p-3 uppercase text-sm font-medium text-gray-100">
+                    <th className="p-3 uppercase text-lg font-medium text-black ">
                       name
                     </th>
-                    <th className="p-3 uppercase text-sm font-medium text-gray-100">
+                    <th className="p-3 uppercase text-lg font-medium text-black ">
                       Email
                     </th>
 
-                    <th className="p-3 uppercase text-sm font-medium text-gray-100">
+                    <th className="p-3 uppercase text-lg font-medium text-black ">
                       <i className="bi bi-trash"></i>delete
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {data?.users?.map((users) => (
-                    <tr key={users._id} className="odd:bg-gray-800">
-                      <td className="p-3 capitalize text-sm font-normal text-gray-400">
+                    <tr key={users._id} className="odd:bg-gray-200">
+                      <td className="p-3 capitalize text-sm font-medium text-black">
                         {users.name}
                       </td>
-                      <td className="p-3 capitalize text-sm font-normal text-gray-400">
+                      <td className="p-3 capitalize text-sm font-medium text-black">
                         {users.email}
                       </td>
 
-                      <td className="p-3 capitalize text-sm font-normal text-gray-400">
+                      <td className="p-3 capitalize text-sm font-medium text-black">
                         <button
                           className="btn btn-danger"
                           onClick={() => deleteUser(users._id)}

@@ -66,7 +66,10 @@ const EditProduct = () => {
   return (
     <Wrapper>
       <ScreenHeader>
-        <Link to="/dashboard/products" className="btn-dark">
+        <Link
+          to="/dashboard/products"
+          className="btn btn btn-warning p-4 font-bold"
+        >
           <i className="bi bi-arrow-left-short"></i>All Products
         </Link>
         <Toaster position="top-right" reverseOrder={true} />

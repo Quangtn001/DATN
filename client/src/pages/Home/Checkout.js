@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const Checkout = () => {
   const [address, setAddress] = useState({});
   const { cart, total } = useSelector((state) => state.cartReducer);
-
+  console.log(cart);
   const { user } = useSelector((state) => state.auth);
 
   const [createOrder, { isLoading, isSuccess }] = useCreateOrderMutation();

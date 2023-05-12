@@ -25,12 +25,15 @@ const CreateCategory = () => {
   return (
     <Wrapper>
       <ScreenHeader>
-        <Link to="/dashboard/categories" className="btn-dark">
+        <Link
+          to="/dashboard/categories"
+          className="btn btn-warning p-4 font-bold"
+        >
           <i className="bi bi-arrow-left-short"></i>All categories
         </Link>
       </ScreenHeader>
       <form className="w-full md:w-8/12" onSubmit={submitCategory}>
-        <h3 className="text-lg capitalize mb-3">create category</h3>
+        <h3 className="text-lg capitalize mb-3 font-medium">create category</h3>
         {errors.length > 0 &&
           errors.map((error, key) => (
             <p className="alert-danger" key={key}>

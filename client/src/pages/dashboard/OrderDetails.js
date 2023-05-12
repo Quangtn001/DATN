@@ -11,6 +11,7 @@ import Spinner from "../../components/Spinner";
 import {
   useDetailsQuery,
   useDeliverOrderMutation,
+  useCancelOrdersMutation,
 } from "../../store/services/orderService";
 import { discount } from "../../utils/discount";
 
@@ -24,10 +25,13 @@ const OrderDetails = () => {
       data?.details?.productId?.discount
     ) * data?.details?.quantities;
 
-  console.log("Total", total);
   const [sentUserOrder, response] = useDeliverOrderMutation();
   const sentOrder = () => {
     sentUserOrder(data?.details?._id);
+  };
+  const [cancelUserOrder, cancelResponse] = useCancelOrdersMutation();
+  const cancelOrder = () => {
+    cancelUserOrder(data?.details?._id);
   };
   return (
     <Wrapper>
@@ -36,7 +40,9 @@ const OrderDetails = () => {
           <Link to="/dashboard/orders">
             <MdOutlineKeyboardBackspace />
           </Link>
-          <span className="ml-4"> Order Details</span>
+          <span className="ml-4 text-2xl uppercase font-extrabold">
+            Order Details
+          </span>
           <span className="ml-4">
             <ReactToPrint
               trigger={() => (
@@ -49,12 +55,20 @@ const OrderDetails = () => {
           </span>
           <span className="ml-4">
             {!isFetching && !data?.details?.status && (
-              <button
-                className="btn bg-orange-600 py-1 text-sm font-semibold px-3"
-                onClick={sentOrder}
-              >
-                {response?.isLoading ? "Loading..." : "Delivered"}
-              </button>
+              <>
+                <button
+                  className="btn bg-orange-600 py-1 text-sm font-semibold px-3"
+                  onClick={sentOrder}
+                >
+                  {response?.isLoading ? "Loading..." : "Delivered"}
+                </button>
+                <button
+                  className="btn bg-red-600 py-1 text-sm font-semibold px-3"
+                  onClick={cancelOrder}
+                >
+                  {cancelResponse?.isLoading ? "Loading..." : "Cancel"}
+                </button>
+              </>
             )}
           </span>
         </div>
