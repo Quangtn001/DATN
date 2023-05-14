@@ -22,6 +22,7 @@ const UserOrders = () => {
   const orderReceived = (id) => {
     updateOrder(id);
   };
+
   return (
     <>
       <Helmet>
@@ -48,6 +49,7 @@ const UserOrders = () => {
                             <th className="th">image</th>
                             <th className="th">name</th>
                             <th className="th">total</th>
+                            <th className="th">Status</th>
                             <th className="th">details</th>
                             <th className="th">received</th>
                           </tr>
@@ -76,6 +78,20 @@ const UserOrders = () => {
                                   {item.productId.title}
                                 </td>
                                 <td className="td font-bold ">{total}</td>
+                                <td
+                                  className={`${
+                                    item.status === "Not Process"
+                                      ? "text-red-600"
+                                      : item.status === "Cancel"
+                                      ? "text-red-600"
+                                      : item.status === "Processing"
+                                      ? "text-blue-600"
+                                      : "text-green-600"
+                                  } text-center font-medium`}
+                                >
+                                  {item.status}
+                                </td>
+
                                 <td className="td">
                                   <Link
                                     to={`/user-order-details/${item._id}`}
@@ -84,26 +100,35 @@ const UserOrders = () => {
                                     details
                                   </Link>
                                 </td>
-                                <td className="td">
-                                  {item.status ? (
-                                    item.received ? (
-                                      <span className="capitalize font-medium text-emerald-600">
-                                        received
-                                      </span>
+                                {item.status === "Cancel" ? (
+                                  <td className="td">
+                                    {/* Render empty cell */}
+                                    {/* Add your desired content for "Cancel" status */}
+                                  </td>
+                                ) : (
+                                  <td className="td">
+                                    {item.status === "Delivered" ? (
+                                      item.received ? (
+                                        <span className="capitalize font-medium text-emerald-600">
+                                          received
+                                        </span>
+                                      ) : (
+                                        <button
+                                          className="btn btn-indigo"
+                                          onClick={() =>
+                                            orderReceived(item._id)
+                                          }
+                                        >
+                                          received?
+                                        </button>
+                                      )
                                     ) : (
-                                      <button
-                                        className="btn btn-indigo"
-                                        onClick={() => orderReceived(item._id)}
-                                      >
-                                        received?
-                                      </button>
-                                    )
-                                  ) : (
-                                    <span className="capitalize font-medium text-rose-600">
-                                      under process
-                                    </span>
-                                  )}
-                                </td>
+                                      <span className="capitalize font-medium text-rose-600">
+                                        under process
+                                      </span>
+                                    )}
+                                  </td>
+                                )}
                               </tr>
                             );
                           })}

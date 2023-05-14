@@ -35,33 +35,37 @@ class Orders {
     }
   }
   async updateOrder(req, res) {
-    const { id, status } = req.query;
-    let option = {};
-    if (status === "delivered") {
-      option = { status: true };
-    } else if (status === "received") {
-      option = { received: true };
-    } else if (status === "cancel") {
-      option = { cancelled: true };
-    }
     try {
-      const updatedProduct = await OrderModel.findByIdAndUpdate(id, option, {
-        new: true,
-      });
-      let msg;
-      if (status === "delivered") {
-        msg = "Order has been delivered.";
-      } else if (status === "received") {
-        msg = "Order has been received.";
-      } else if (status === "cancel") {
-        msg = "Order has been cancelled.";
-      }
-      return res.status(200).json({ updatedProduct, msg });
+      const { id } = req.params;
+      const { status } = req.body;
+      const order = await OrderModel.findByIdAndUpdate(
+        id,
+        { status },
+        { new: true }
+      );
+      res.json(order);
     } catch (error) {
       return res.status(500).json({ errors: error.message });
     }
   }
 
+  async updateReceivedOrder(req, res) {
+    try {
+      const { id } = req.params;
+
+      // Kiểm tra và cập nhật trạng thái đã nhận hàng
+      const order = await OrderModel.findByIdAndUpdate(
+        id,
+        { received: true },
+        { new: true }
+      );
+
+      // Trả về đơn hàng đã được cập nhật
+      res.json(order);
+    } catch (error) {
+      return res.status(500).json({ errors: error.message });
+    }
+  }
   async createRating(req, res) {
     const errors = validationResult(req);
     const { rating, message, user, product, id } = req.body;

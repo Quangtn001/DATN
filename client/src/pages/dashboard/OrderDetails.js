@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReactToPrint from "react-to-print";
 import { BsPrinter } from "react-icons/bs";
 import currency from "currency-formatter";
@@ -10,8 +10,7 @@ import Wrapper from "./Wrapper";
 import Spinner from "../../components/Spinner";
 import {
   useDetailsQuery,
-  useDeliverOrderMutation,
-  useCancelOrdersMutation,
+  useUpdateOrderMutation,
 } from "../../store/services/orderService";
 import { discount } from "../../utils/discount";
 
@@ -25,14 +24,18 @@ const OrderDetails = () => {
       data?.details?.productId?.discount
     ) * data?.details?.quantities;
 
-  const [sentUserOrder, response] = useDeliverOrderMutation();
-  const sentOrder = () => {
-    sentUserOrder(data?.details?._id);
+  const statusUpdate = ["Not Process", "Delivered", "Cancel"];
+  const [changeStatus, setChangeStatus] = useState("");
+  const [updateOrder] = useUpdateOrderMutation();
+  const handleStatusChange = (e) => {
+    const newStatus = e.target.value;
+    setChangeStatus(newStatus);
+    const orderId = data?.details?._id;
+    if (newStatus && orderId) {
+      updateOrder({ id: orderId, status: newStatus });
+    }
   };
-  const [cancelUserOrder, cancelResponse] = useCancelOrdersMutation();
-  const cancelOrder = () => {
-    cancelUserOrder(data?.details?._id);
-  };
+
   return (
     <Wrapper>
       <ScreenHeader>
@@ -54,20 +57,21 @@ const OrderDetails = () => {
             />
           </span>
           <span className="ml-4">
-            {!isFetching && !data?.details?.status && (
+            {!isFetching && data?.details?.status === "Delivered" ? (
+              <span className="text-green-600 font-medium">Deliverd</span>
+            ) : (
               <>
-                <button
-                  className="btn bg-orange-600 py-1 text-sm font-semibold px-3"
-                  onClick={sentOrder}
+                <select
+                  className="appearance-none font-medium bg-white border border-gray-600 rounded px-4 py-1 leading-tight focus:outline-none focus:border-blue-500"
+                  onChange={handleStatusChange}
+                  value={changeStatus}
                 >
-                  {response?.isLoading ? "Loading..." : "Delivered"}
-                </button>
-                <button
-                  className="btn bg-red-600 py-1 text-sm font-semibold px-3"
-                  onClick={cancelOrder}
-                >
-                  {cancelResponse?.isLoading ? "Loading..." : "Cancel"}
-                </button>
+                  {statusUpdate.map((item, i) => (
+                    <option value={item} key={i}>
+                      {item}
+                    </option>
+                  ))}
+                </select>
               </>
             )}
           </span>

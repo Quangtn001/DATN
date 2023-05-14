@@ -111,7 +111,7 @@ const UserOrderDetails = () => {
                             <th className="th">price</th>
                             <th className="th">quantities</th>
                             <th className="th">total</th>
-                            <th className="th">delivered</th>
+                            <th className="th">status</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -129,9 +129,7 @@ const UserOrderDetails = () => {
                             </td>
                             <td className="td">{data?.details?.quantities}</td>
                             <td className="td">{total}</td>
-                            <td className="td">
-                              {data?.details?.status ? "Delivering" : "No"}
-                            </td>
+                            <td className="td">{data?.details?.status}</td>
                           </tr>
                         </tbody>
                       </table>

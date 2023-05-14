@@ -24,7 +24,7 @@ const Orders = () => {
                     <th className="dashboard-th">quantities</th>
                     <th className="dashboard-th">image</th>
                     <th className="dashboard-th">received</th>
-                    <th className="dashboard-th">Delivered</th>
+                    <th className="dashboard-th">Status</th>
                     <th className="dashboard-th">details</th>
                   </tr>
                 </thead>
@@ -46,8 +46,16 @@ const Orders = () => {
                       <td className="dashboard-td">
                         {order.received ? "Yes" : "No"}
                       </td>
-                      <td className="dashboard-td">
-                        {order.status ? "Yes" : "No"}
+                      <td
+                        className={`${
+                          order.status === "Not Process"
+                            ? "text-red-600"
+                            : order.status === "Cancel"
+                            ? "text-red-600"
+                            : "text-green-600"
+                        } dashboard-td font-medium`}
+                      >
+                        {order.status}
                       </td>
                       <td className="dashboard-td">
                         <Link

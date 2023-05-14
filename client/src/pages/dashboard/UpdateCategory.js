@@ -18,7 +18,6 @@ const UpdateCategory = () => {
   }, [data?.category]);
 
   const [saveCategory, response] = useUpdateCategoryMutation();
-  console.log(response);
   const errors = response?.error?.data?.errors
     ? response?.error?.data?.errors
     : [];

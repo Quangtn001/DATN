@@ -35,7 +35,7 @@ const userOrdersService = createApi({
       receivedOrder: builder.mutation({
         query: (id) => {
           return {
-            url: `/order-update?id=${id}&status=received`,
+            url: `/order-received/${id}`,
             method: "PUT",
           };
         },
