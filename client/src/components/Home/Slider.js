@@ -43,7 +43,7 @@ const Slider = () => {
                     to={`/cat-products/${cat.name}`}
                     className="btn btn-indigo text-sm"
                   >
-                    browse collections
+                    Xem ngay!
                   </Link>
                 </div>
               </div>

@@ -55,7 +55,7 @@ const Register = () => {
       </Helmet>
       <NavBar />
       <div className="mt-[70px] pb-[80px]">
-        <Header>sign up</Header>
+        <Header>Đăng ký</Header>
         <div className="flex flex-wrap justify-center">
           <motion.div
             initial={{ opacity: 0, x: "-100vw" }}
@@ -66,7 +66,9 @@ const Register = () => {
               onSubmit={onSubmit}
               className="bg-white rounded-lg -mt-12 border border-gray-200 p-10"
             >
-              <h1 className="heading mb-5">sign up</h1>
+              <h1 className="heading mb-5 uppercase text-2xl text-center">
+                Đăng ký
+              </h1>
               <div className="mb-4">
                 <label htmlFor="name" className="form-label">
                   name
@@ -133,16 +135,16 @@ const Register = () => {
               <div className="mb-4">
                 <input
                   type="submit"
-                  value={`${response.isLoading ? "Loading..." : "sign up"}`}
+                  value={`${response.isLoading ? "Loading..." : "Đăng ký"}`}
                   className="btn btn-indigo w-full"
                   disabled={response.isLoading ? true : false}
                 />
               </div>
               <div>
                 <p>
-                  Already have an account ?{" "}
+                  Bạn đã có tài khoản ?{" "}
                   <span className="capitalize font-medium text-base text-black">
-                    <Link to="/login">sign in</Link>
+                    <Link to="/login">Đăng nhập</Link>
                   </span>
                 </p>
               </div>

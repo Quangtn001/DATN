@@ -43,7 +43,7 @@ const NavBar = () => {
                   onClick={() => setIsOpen((prev) => !prev)}
                   className="font-medium uppercase hover:text-violet-600"
                 >
-                  Category
+                  Danh mục
                 </p>
                 {!isFetching && !isOpen ? (
                   <IoMdArrowDropdown />
@@ -64,10 +64,10 @@ const NavBar = () => {
               </div>
               <div className="flex items-center gap-5 font-medium uppercase ">
                 <Link to="/about" className="hover:text-violet-600">
-                  About Us
+                  Về chúng tôi
                 </Link>
                 <Link className="hover:text-violet-600" to="/contact">
-                  Contact Us
+                  Liên hệ
                 </Link>
               </div>
             </div>
@@ -88,7 +88,7 @@ const NavBar = () => {
               ) : (
                 <li className="nav-li">
                   <Link to="/login" className="nav-link">
-                    sign in
+                    Đăng nhập
                   </Link>
                 </li>
               )}
@@ -110,7 +110,7 @@ const NavBar = () => {
                       onClick={() => setIsOpen((prev) => !prev)}
                       className="font-medium uppercase"
                     >
-                      Category
+                      Danh mục
                     </p>
                     {!isFetching && !isOpen ? (
                       <IoMdArrowDropdown />
@@ -139,13 +139,13 @@ const NavBar = () => {
                     to="/about"
                     className="uppercase font-medium py-2 px-6 rounded-md text-black hover:bg-gray-200"
                   >
-                    About Us
+                    Về chúng tôi
                   </Link>
                   <Link
                     to="/contact"
                     className="uppercase font-medium py-2 px-6 rounded-md text-black hover:bg-gray-200"
                   >
-                    Contact Us
+                    Liên hệ
                   </Link>
                   {/* ...add other mobile menu items as needed... */}
                 </div>

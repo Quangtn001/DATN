@@ -95,12 +95,12 @@ const DetailsCard = ({ product }) => {
   const review = <Reviews product={product.reviews} />;
   const data = [
     {
-      label: "Description",
+      label: "Mô tả",
       value: "html",
       desc: `${descript}`,
     },
     {
-      label: "Review",
+      label: "Đánh giá",
       value: "react",
       desc: review,
     },
@@ -146,7 +146,7 @@ const DetailsCard = ({ product }) => {
           </div>
           <div className="w-full sm:w-6/12 p-3">
             <button className="btn btn-indigo" onClick={addToCart}>
-              add to cart
+              Mua ngay
             </button>
           </div>
         </div>

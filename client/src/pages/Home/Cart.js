@@ -47,7 +47,7 @@ const Cart = () => {
     if (userToken) {
       navigate("/checkout");
     } else {
-      navigate("/login");
+      navigate("/login", { state: { redirect: "/checkout" } });
     }
   };
 
@@ -74,13 +74,12 @@ const Cart = () => {
               <table className="w-full">
                 <thead>
                   <tr className="thead-tr">
-                    <th className="th">image</th>
-                    <th className="th">name</th>
-
-                    <th className="th">price</th>
-                    <th className="th">quantities</th>
-                    <th className="th">total</th>
-                    <th className="th">delete</th>
+                    <th className="th">Hình ảnh</th>
+                    <th className="th">Tên</th>
+                    <th className="th">Giá</th>
+                    <th className="th">Số lượng</th>
+                    <th className="th">Tổng tiền</th>
+                    <th className="th">Xóa</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -143,13 +142,13 @@ const Cart = () => {
                   className="btn bg-indigo-600 text-sm font-medium py-2.5"
                   onClick={paymentHandler}
                 >
-                  {response.isLoading ? "Loading..." : "checkout with card"}
+                  {response.isLoading ? "Loading..." : "Thanh toán online"}
                 </button>
                 <button
                   onClick={cashOnDelivery}
                   className="btn bg-indigo-900 text-sm font-medium py-2.5 mx-4"
                 >
-                  Cash on Delivery
+                  Mua ngay
                 </button>
               </div>
             </div>

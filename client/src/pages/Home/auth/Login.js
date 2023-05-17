@@ -58,7 +58,9 @@ const Login = () => {
               onSubmit={onSubmit}
               className="bg-white rounded-lg -mt-12 border border-gray-200 p-10"
             >
-              <h1 className="heading mb-5">sign in</h1>
+              <h1 className="heading mb-5 text-center text-2xl uppercase">
+                Đăng nhập
+              </h1>
               <div className="mb-4">
                 <label htmlFor="email" className="form-label">
                   email
@@ -106,13 +108,13 @@ const Login = () => {
                   to="/forgot-password"
                   className="flex justify-end underline"
                 >
-                  Forgot Password?
+                  Quên mật khẩu?
                 </Link>
               </div>
               <div className="mb-4">
                 <input
                   type="submit"
-                  value={`${response.isLoading ? "Loading..." : "sign in"}`}
+                  value={`${response.isLoading ? "Loading..." : "Đăng nhập"}`}
                   className="btn btn-indigo w-full "
                   disabled={response.isLoading ? true : false}
                 />
@@ -135,9 +137,9 @@ const Login = () => {
               </div> */}
               <div>
                 <p>
-                  Don't have an account ?{" "}
+                  Chưa có tài khoản ?{" "}
                   <span className="capitalize font-medium text-base text-black">
-                    <Link to="/register">register</Link>
+                    <Link to="/register">Đăng ký</Link>
                   </span>
                 </p>
               </div>

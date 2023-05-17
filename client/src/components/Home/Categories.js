@@ -7,7 +7,9 @@ const Categories = () => {
 
   return (
     <>
-      <h1 className="uppercase font-bold text-2xl mb-3">Categories</h1>
+      <h1 className="uppercase font-bold text-2xl mb-5 text-center">
+        Danh mục sản phẩm
+      </h1>
       {!isFetching ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mb-10 ">
           {data.categories.map((category) => (

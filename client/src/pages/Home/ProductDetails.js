@@ -24,7 +24,7 @@ const ProductDetails = () => {
           <>
             <ul className="flex items-center">
               <li className="capitalize text-gray-600">
-                <Link to="/">Home</Link>
+                <Link to="/">Trang chủ</Link>
               </li>
               <FiChevronRight className="block mx-2" />
               <li className="capitalize text-gray-600">
