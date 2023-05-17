@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import ReactToPrint from "react-to-print";
 import { BsPrinter } from "react-icons/bs";
 import currency from "currency-formatter";

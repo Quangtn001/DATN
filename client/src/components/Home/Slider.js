@@ -6,7 +6,6 @@ import Spinner from "../Spinner";
 import { Link } from "react-router-dom";
 const Slider = () => {
   const { data, isFetching } = useAllCategoriesQuery();
-  console.log(data, isFetching);
   return isFetching ? (
     <div className="my-container h-[70vh] flex items-center justify-center">
       <Spinner />

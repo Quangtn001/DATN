@@ -2,6 +2,8 @@ import currency from "currency-formatter";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { AiFillStar } from "react-icons/ai";
+import { truncateString } from "../../utils/truncateString";
+
 const ProductCard = ({ product }) => {
   const percentage = product.discount / 100;
   const discountPrice = product.price - product.price * percentage;
@@ -53,7 +55,7 @@ const ProductCard = ({ product }) => {
           />
         </div>
         <p className="capitalize text-base font-medium text-black my-2.5">
-          {product.title}
+          {truncateString(product.title, 30)}
         </p>
         <div className="flex items-center">
           <div className="flex items-center space-x-2 mb-1">

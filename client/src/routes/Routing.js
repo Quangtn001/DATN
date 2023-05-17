@@ -34,6 +34,7 @@ import Customer from "../pages/dashboard/Customer";
 import Checkout from "../pages/Home/Checkout";
 import DashboardAdmin from "../pages/dashboard/DashboardAdmin";
 import AboutUs from "../pages/AboutUs";
+import PaymentSuccess from "../pages/Home/PaymentSuccess";
 const Routing = () => {
   return (
     <BrowserRouter>
@@ -44,6 +45,7 @@ const Routing = () => {
         <Route path="/cat-products/:name" element={<CatProduct />} />
         <Route path="/cat-products/:name/:page" element={<CatProduct />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/payment-success" element={<PaymentSuccess />} />
         <Route
           path="/cat-products/:name/:page/:sort/:order"
           element={<CatProduct />}

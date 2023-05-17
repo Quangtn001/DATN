@@ -15,7 +15,7 @@ import {
 import { Helmet } from "react-helmet";
 // import { Link } from "react-router-dom";
 import { useSendPaymentMutation } from "../../store/services/paymentService";
-import Footer from "../../components/Home/Footer";
+// import Footer from "../../components/Home/Footer";
 const Cart = () => {
   const { cart, total } = useSelector((state) => state.cartReducer);
   const { userToken, user } = useSelector((state) => state.authReducer);
@@ -38,6 +38,14 @@ const Cart = () => {
   const paymentHandler = () => {
     if (userToken) {
       doPayment({ cart, id: user.id });
+    } else {
+      navigate("/login");
+    }
+  };
+
+  const cashOnDelivery = () => {
+    if (userToken) {
+      navigate("/checkout");
     } else {
       navigate("/login");
     }
@@ -137,12 +145,12 @@ const Cart = () => {
                 >
                   {response.isLoading ? "Loading..." : "checkout with card"}
                 </button>
-                <Link
-                  to="/checkout"
+                <button
+                  onClick={cashOnDelivery}
                   className="btn bg-indigo-900 text-sm font-medium py-2.5 mx-4"
                 >
                   Cash on Delivery
-                </Link>
+                </button>
               </div>
             </div>
           </>

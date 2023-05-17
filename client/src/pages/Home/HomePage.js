@@ -25,7 +25,12 @@ export const HomePage = () => {
           data?.categories.map((category) => (
             <HomeProduct category={category} key={category._id} />
           ))}
+
+        <div className="mb-3">
+          <img src="/images/banner.png" alt="" />
+        </div>
       </div>
+
       <Footer />
     </>
   );

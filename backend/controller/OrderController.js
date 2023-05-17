@@ -69,7 +69,6 @@ class Orders {
   async createRating(req, res) {
     const errors = validationResult(req);
     const { rating, message, user, product, id } = req.body;
-    console.log(req.body);
     if (errors.isEmpty()) {
       try {
         const createdReview = await Reviews.create({

@@ -1,42 +1,39 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { discount } from "../../utils/discount";
 import currency from "currency-formatter";
 import { useCreateOrderMutation } from "../../store/services/orderService";
 import { useNavigate } from "react-router-dom";
+import { emptyCart } from "../../store/reducers/cartReducer";
+
 const Checkout = () => {
-  const [address, setAddress] = useState({});
+  const [address, setAddress] = useState(new Map());
   const { cart, total } = useSelector((state) => state.cartReducer);
-  console.log(cart);
-  const { user } = useSelector((state) => state.auth);
-
-  const [createOrder, { isLoading, isSuccess }] = useCreateOrderMutation();
+  const { user } = useSelector((state) => state.authReducer);
+  const [createOrder, { isLoading }] = useCreateOrderMutation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handlePlaceOrder = async () => {
-    const orderItems = cart.map((item) => {
-      return {
-        productId: item._id,
-        quantities: item.quantity,
-      };
-    });
+    for (const item of cart) {
+      const productId = item._id;
+      const userId = user.id; // Replace with the appropriate user ID
+      const quantities = item.quantity;
+      const addressObject = Object.fromEntries(address);
 
-    const order = {
-      orderItems,
-      address,
-    };
-
-    if (user) {
-      order.userId = user.id;
+      await createOrder({
+        productId,
+        userId,
+        quantities,
+        address: addressObject,
+      });
     }
 
-    await createOrder(order);
-
-    // Handle the response
-    if (isSuccess) {
-      // Clear the cart and redirect to the order confirmation page
-      navigate.push("/order-confirmation");
-    }
+    // Clear the cart and redirect to the order confirmation page
+    dispatch(emptyCart());
+    localStorage.removeItem("cart");
+    navigate("/payment-success");
   };
+
   return (
     <>
       <div className="relative mx-auto w-full bg-white">
@@ -59,8 +56,12 @@ const Checkout = () => {
                     required
                     type="text"
                     name="city"
-                    value={address}
-                    onChange={(event) => setAddress(event.target.value)}
+                    value={address.get("city") || ""}
+                    onChange={(event) => {
+                      const updatedAddress = new Map(address);
+                      updatedAddress.set("city", event.target.value);
+                      setAddress(updatedAddress);
+                    }}
                     placeholder="Please enter shipping address"
                     className="block w-full rounded border-gray-300 bg-gray-50 py-3 px-4 pr-10 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-teal-500"
                   />
@@ -76,6 +77,12 @@ const Checkout = () => {
                     required
                     type="text"
                     name="country"
+                    value={address.get("country") || ""}
+                    onChange={(event) => {
+                      const updatedAddress = new Map(address);
+                      updatedAddress.set("country", event.target.value);
+                      setAddress(updatedAddress);
+                    }}
                     placeholder="Please enter shipping address"
                     className="block w-full rounded border-gray-300 bg-gray-50 py-3 px-4 pr-10 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-teal-500"
                   />
@@ -91,6 +98,12 @@ const Checkout = () => {
                     required
                     type="text"
                     name="state"
+                    value={address.get("state") || ""}
+                    onChange={(event) => {
+                      const updatedAddress = new Map(address);
+                      updatedAddress.set("state", event.target.value);
+                      setAddress(updatedAddress);
+                    }}
                     placeholder="Please enter shipping address"
                     className="block w-full rounded border-gray-300 bg-gray-50 py-3 px-4 pr-10 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-teal-500"
                   />

@@ -16,11 +16,9 @@ const DashboardAdmin = () => {
   const { data: products = [], isFetching: productFecth } =
     useAllProductsQuery();
   const { data: orders = [], isFetching: orderFecth } = useAllOrdersQuery();
+
   const label = orders?.orders?.map((item) => item.createdAt) || [];
 
-  //   const formattedDates = label?.map((dateTimeString) =>
-  //     moment(dateTimeString).format("YYYY-MM-DD")
-  //   );
   const uniqueDatesSet = new Set(
     label?.map((date) => moment(date).format("YYYY-MM-DD"))
   );

@@ -61,7 +61,7 @@ const CatProduct = () => {
             <p className="text-base font-medium text-gray-700">
               {catProductData?.count} products found in #{name} category
             </p>
-            <hr />
+
             <div className="w-full md:w-5/3  p-5 rounded-lg bg-white">
               <div className="flex items-center justify-between mt-4">
                 <p className="font-medium">Filters</p>
@@ -97,10 +97,12 @@ const CatProduct = () => {
               </div>
             </div>
             <hr />
-            <div className="flex flex-wrap -mx-5">
-              {catProductData.products.map((product) => {
-                return <ProductCard product={product} key={product._id} />;
-              })}
+            <div>
+              <div className="flex flex-wrap -mx-5">
+                {catProductData.products.map((product) => {
+                  return <ProductCard product={product} key={product._id} />;
+                })}
+              </div>
             </div>
             <Pagination
               page={parseInt(page)}
