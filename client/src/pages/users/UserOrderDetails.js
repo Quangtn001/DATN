@@ -52,7 +52,7 @@ const UserOrderDetails = () => {
                   className="cursor-pointer text-gray-500"
                   onClick={() => navigate(-1)}
                 />{" "}
-                <span className="ml-5">details</span>
+                <span className="ml-5">Chi tiết </span>
               </h1>
               {!isFetching ? (
                 <div className="flex flex-col md:flex-row flex-wrap my-5">
@@ -65,26 +65,26 @@ const UserOrderDetails = () => {
                   </div>
                   <div className="flex-1 my-4 md:my-0 md:ml-4">
                     <DetailsList
-                      label="order number"
+                      label="Mã đơn hàng"
                       data={data?.details?._id}
                     />
                     <DetailsList
-                      label="product name"
+                      label="Tên sản phẩm"
                       data={data?.details?.productId?.title}
                     />
                     <DetailsList
-                      label="order received"
-                      data={data?.details?.received ? "Yes" : "No"}
+                      label="Tình trạng nhận hàng"
+                      data={data?.details?.received ? "Đã nhận" : "Chưa nhận"}
                     />
                     <DetailsList
-                      label="order date"
+                      label="Ngày order"
                       data={moment(data?.details?.createdAt).format(
                         "MMMM Do YYYY"
                       )}
                     />
                     {data?.details?.received && (
                       <DetailsList
-                        label="received date"
+                        label="Ngày nhận"
                         data={moment(data?.details?.updatedAt).format(
                           "MMMM Do YYYY"
                         )}
@@ -93,14 +93,22 @@ const UserOrderDetails = () => {
                     {data?.details?.received && !data?.details?.review && (
                       <div className="flex mt-2 items-center justify-between">
                         <h4 className="capitalize text-base font-normal text-gray-600 mr-5">
-                          add rating
+                          Đánh giá
                         </h4>
                         <button
                           className="btn-indigo rounded !py-2 !text-sm mr-5"
                           onClick={() => toggleReview()}
                         >
-                          add reivew
+                          Đánh giá
                         </button>
+                      </div>
+                    )}
+                    {data?.details?.received && data?.details?.review && (
+                      <div className="flex mt-2 items-center justify-between">
+                        <h4 className="capitalize text-base font-normal text-gray-600 mr-5">
+                          Đánh giá
+                        </h4>
+                        <p className="text-green-600">Đã đánh giá rồi!</p>
                       </div>
                     )}
 
@@ -108,15 +116,15 @@ const UserOrderDetails = () => {
                       <table className="w-full">
                         <thead>
                           <tr className="thead-tr">
-                            <th className="th">price</th>
-                            <th className="th">quantities</th>
-                            <th className="th">total</th>
-                            <th className="th">status</th>
+                            <th className="th">Giá</th>
+                            <th className="th">Số lượng</th>
+                            <th className="th">Tổng tiền</th>
+                            <th className="th">Tình trạng</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr className="even:bg-gray-50">
-                            <td className="td">
+                            <td className="td font-medium">
                               {currency.format(
                                 discount(
                                   data?.details?.productId?.price,
@@ -127,9 +135,13 @@ const UserOrderDetails = () => {
                                 }
                               )}
                             </td>
-                            <td className="td">{data?.details?.quantities}</td>
-                            <td className="td">{total}</td>
-                            <td className="td">{data?.details?.status}</td>
+                            <td className="td font-medium">
+                              {data?.details?.quantities}
+                            </td>
+                            <td className="td font-medium">{total}</td>
+                            <td className="td font-medium">
+                              {data?.details?.status}
+                            </td>
                           </tr>
                         </tbody>
                       </table>

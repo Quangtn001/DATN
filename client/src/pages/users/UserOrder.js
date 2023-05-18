@@ -18,7 +18,6 @@ const UserOrders = () => {
   const { user } = useSelector((state) => state.authReducer);
   const { data, isFetching } = useGetOrdersQuery({ page, userId: user.id });
   const [updateOrder, response] = useReceivedOrderMutation();
-  console.log("data", data);
   const orderReceived = (id) => {
     updateOrder(id);
   };
@@ -38,7 +37,7 @@ const UserOrders = () => {
               <AccountList />
             </div>
             <div className="w-full md:w-8/12 p-6">
-              <h1 className="heading mb-6">orders</h1>
+              <h1 className="heading mb-6">Danh sách đơn hàng</h1>
               {!isFetching ? (
                 data?.orders?.length > 0 ? (
                   <>
@@ -46,12 +45,12 @@ const UserOrders = () => {
                       <table className="w-full">
                         <thead>
                           <tr className="thead-tr">
-                            <th className="th">image</th>
-                            <th className="th">name</th>
-                            <th className="th">total</th>
-                            <th className="th">Status</th>
-                            <th className="th">details</th>
-                            <th className="th">received</th>
+                            <th className="th">Hình ảnh</th>
+                            <th className="th">Tên</th>
+                            <th className="th">Tổng tiền</th>
+                            <th className="th">Tình trạnh</th>
+                            <th className="th">Xem chi tiết</th>
+                            <th className="th">Đã nhận</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -80,11 +79,11 @@ const UserOrders = () => {
                                 <td className="td font-bold ">{total}</td>
                                 <td
                                   className={`${
-                                    item.status === "Not Process"
+                                    item.status === "Chưa xử lý"
                                       ? "text-red-600"
-                                      : item.status === "Cancel"
+                                      : item.status === "Hủy"
                                       ? "text-red-600"
-                                      : item.status === "Processing"
+                                      : item.status === "Đang xử lý"
                                       ? "text-blue-600"
                                       : "text-green-600"
                                   } text-center font-medium`}
@@ -97,20 +96,20 @@ const UserOrders = () => {
                                     to={`/user-order-details/${item._id}`}
                                     className="btn btn-indigo"
                                   >
-                                    details
+                                    Xem
                                   </Link>
                                 </td>
-                                {item.status === "Cancel" ? (
+                                {item.status === "Hủy" ? (
                                   <td className="td">
                                     {/* Render empty cell */}
                                     {/* Add your desired content for "Cancel" status */}
                                   </td>
                                 ) : (
                                   <td className="td">
-                                    {item.status === "Delivered" ? (
+                                    {item.status === "Đã giao" ? (
                                       item.received ? (
                                         <span className="capitalize font-medium text-emerald-600">
-                                          received
+                                          Đã nhận
                                         </span>
                                       ) : (
                                         <button
@@ -119,12 +118,12 @@ const UserOrders = () => {
                                             orderReceived(item._id)
                                           }
                                         >
-                                          received?
+                                          Bạn nhận hàng chưa?
                                         </button>
                                       )
                                     ) : (
                                       <span className="capitalize font-medium text-rose-600">
-                                        under process
+                                        Chưa xử lý
                                       </span>
                                     )}
                                   </td>

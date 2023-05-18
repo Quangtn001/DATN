@@ -17,7 +17,6 @@ const EditProduct = () => {
   const { id } = useParams();
 
   const { data: product, isFetching: fetching } = useGetProductQuery(id);
-  console.log("data", product);
 
   const { data = [], isFetching } = useAllCategoriesQuery();
 
@@ -34,7 +33,7 @@ const EditProduct = () => {
   };
 
   const [updateProduct, response] = useUpdateProductMutation();
-  console.log("Your response", response);
+
   const updatePro = (e) => {
     e.preventDefault();
     updateProduct(state);

@@ -21,12 +21,13 @@ import {
 import Reviews from "./Reviews";
 
 const DetailsCard = ({ product }) => {
+  console.log(product.stock);
   const [quantity, setQuantity] = useState(1);
   const inc = () => {
-    if (quantity < 20) {
+    if (quantity < product.stock) {
       setQuantity(quantity + 1);
     } else {
-      alert("Cannot add more 20 items");
+      toast.error("Hết hàng trong kho!");
     }
   };
 

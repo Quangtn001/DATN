@@ -24,7 +24,7 @@ const OrderDetails = () => {
       data?.details?.productId?.discount
     ) * data?.details?.quantities;
 
-  const statusUpdate = ["Not Process", "Delivered", "Cancel"];
+  const statusUpdate = ["Chưa xử lý", "Đang xử lý", "Đã giao", "Hủy"];
   const [changeStatus, setChangeStatus] = useState("");
   const [updateOrder] = useUpdateOrderMutation();
   const handleStatusChange = (e) => {
@@ -43,7 +43,7 @@ const OrderDetails = () => {
           <Link to="/dashboard/orders">
             <MdOutlineKeyboardBackspace />
           </Link>
-          <span className="ml-4 text-2xl uppercase font-extrabold">
+          <span className="ml-4 text-2xl uppercase font-bold">
             Order Details
           </span>
           <span className="ml-4">
@@ -56,15 +56,21 @@ const OrderDetails = () => {
               content={() => componentRef.current}
             />
           </span>
-          <span className="ml-4">
-            {!isFetching && data?.details?.status === "Delivered" ? (
-              <span className="text-green-600 font-medium">Deliverd</span>
+        </div>
+        <div className="px-8 flex gap-4 items-center mt-5">
+          <p className="text-red-800 text-lg font-medium uppercase">
+            Tình trạng đơn hàng :
+          </p>
+          <span>
+            {!isFetching && data?.details?.status === "Đã giao" ? (
+              <span className="text-green-600 font-medium">
+                Đã giao thành công!
+              </span>
             ) : (
               <>
                 <select
                   className="appearance-none font-medium bg-white border border-gray-600 rounded px-4 py-1 leading-tight focus:outline-none focus:border-blue-500"
                   onChange={handleStatusChange}
-                  value={changeStatus}
                 >
                   {statusUpdate.map((item, i) => (
                     <option value={item} key={i}>
@@ -79,22 +85,30 @@ const OrderDetails = () => {
       </ScreenHeader>
       {!isFetching ? (
         <div ref={componentRef}>
-          <h3 className="capitalize text-gray-400">
-            order number:{" "}
-            <span className="text-lg text-gray-300 ml-4">
+          <h3 className="capitalize font-medium text-gray-800">
+            Mã đơn hàng:{" "}
+            <span className="text-lg text-gray-800 ml-4">
               #{data?.details?._id}
             </span>
           </h3>
-          <h3 className="capitalize text-gray-400 mt-2">
-            order date:{" "}
-            <span className="text-sm text-gray-300 ml-4">
+          <h3 className="capitalize font-medium text-gray-800 mt-2">
+            Ngày đặt hàng:{" "}
+            <span className="text-sm text-gray-800 ml-4">
               {moment(data?.details?.createdAt).format("MMMM Do YYYY")}
             </span>
           </h3>
+          <h3 className="capitalize font-medium text-gray-800 mt-2">
+            Phương thức thanh toán:{" "}
+            <span className="text-sm text-gray-800 ml-4">
+              {data?.details?.paymentMethod === "COD"
+                ? "Thanh toán khi nhận hàng"
+                : "Thanh toán online"}
+            </span>
+          </h3>
           {data?.details?.received && (
-            <h3 className="capitalize text-gray-400 mt-2">
-              received date:{" "}
-              <span className="text-sm text-gray-300 ml-4">
+            <h3 className="capitalize text-gray-800 mt-2">
+              ngày nhận hàng:{" "}
+              <span className="text-sm text-gray-800 ml-4">
                 {moment(data?.details?.updatedAt).format("MMMM Do YYYY")}
               </span>
             </h3>
@@ -102,15 +116,15 @@ const OrderDetails = () => {
 
           <div className="flex flex-wrap -mx-5">
             <div className="w-full md:w-8/12 p-5">
-              <div>
+              <div className="border px-2">
                 <table className="bg-transparent border-gray-600 rounded-none md:rounded-md dashboard-table">
                   <thead>
                     <tr className="dashboard-tr">
-                      <th className="dashboard-th">name</th>
-                      <th className="dashboard-th">image</th>
-                      <th className="dashboard-th">quantities</th>
-                      <th className="dashboard-th">price</th>
-                      <th className="dashboard-th">total</th>
+                      <th className="dashboard-th">Tên</th>
+                      <th className="dashboard-th">Hình ảnh</th>
+                      <th className="dashboard-th">Số lượng</th>
+                      <th className="dashboard-th">Giá</th>
+                      <th className="dashboard-th">Tổng tiền</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -148,39 +162,38 @@ const OrderDetails = () => {
             <div className="w-full md:w-4/12 p-5">
               <div className="border border-gray-600 rounded-none md:rounded-md p-4">
                 <div className="border-b pb-3 border-b-gray-600">
-                  <h4 className="capitalize text-base text-gray-500">
-                    customer name
+                  <h4 className="capitalize  text-gray-800 text-xl">
+                    Tên khách hàng :
                   </h4>
-                  <span className="text-gray-400 text-base font-medium capitalize mt-2">
+                  <span className="text-gray-800 text-base font-medium capitalize mt-2">
                     {data?.details?.userId?.name}
                   </span>
                 </div>
                 <div className="border-b pb-3 border-b-gray-600">
-                  <h4 className="capitalize text-base text-gray-500">
-                    product name
+                  <h4 className="capitalize text-xl text-gray-800">
+                    Tên sản phẩm
                   </h4>
-                  <span className="text-gray-400 text-base font-medium capitalize mt-2">
+                  <span className="text-gray-800 text-base font-medium capitalize mt-2">
                     {data?.details?.productId?.title}
                   </span>
                 </div>
 
                 <div>
-                  <h4 className="capitalize text-base text-gray-500 mt-2">
-                    shipping address
+                  <h4 className="capitalize text-xl text-gray-800 mt-2">
+                    Địa chỉ giao hàng
                   </h4>
                   <div className="mt-2">
-                    <span className="text-gray-400 capitalize block">
-                      {data?.details?.address?.city}
+                    <span className="text-gray-800 capitalize block font-medium">
+                      {data?.details?.address?.city} -{" "}
+                      {data?.details?.address?.country} -{" "}
+                      {data?.details?.address?.state}
                     </span>
-                    <span className="text-gray-400 capitalize block">
-                      {data?.details?.address?.line1}
+                    {/* <span className="text-gray-800 capitalize block">
+                      {data?.details?.address?.country}
                     </span>
-                    <span className="text-gray-400 capitalize block">
-                      {data?.details?.address?.line2}
-                    </span>
-                    <span className="text-gray-400 capitalize block">
-                      {data?.details?.address?.postal_code}
-                    </span>
+                    <span className="text-gray-800 capitalize block">
+                      {data?.details?.address?.state}
+                    </span> */}
                   </div>
                 </div>
               </div>

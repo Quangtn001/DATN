@@ -18,7 +18,6 @@ const Products = () => {
     page = 1;
   }
   const { data = [], isFetching } = useGetProductsQuery(page);
-  console.log(data);
   const { success } = useSelector((state) => state.globalReducer);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -29,8 +28,7 @@ const Products = () => {
       dispatch(clearMessage());
     };
   }, [dispatch, success]);
-  const [delProduct, response] = useDeleteProductMutation();
-  console.log(response);
+  const [delProduct] = useDeleteProductMutation();
 
   const deleteProduct = (id) => {
     if (window.confirm("Are you really want to delete this product?")) {

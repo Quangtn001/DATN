@@ -102,6 +102,7 @@ class Orders {
         userId,
         quantities,
         address,
+        paymentMethod: "COD",
       });
 
       // Save the new order to the database

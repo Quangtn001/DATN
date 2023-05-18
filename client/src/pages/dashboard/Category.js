@@ -16,12 +16,10 @@ const Category = () => {
     page = 1;
   }
   const { success } = useSelector((state) => state.globalReducer);
-  console.log(success);
   const dispatch = useDispatch();
   const { data = [], isFetching } = useGetQuery(page);
   // delete category
   const [removeCategory, response] = useDeleteCategoryMutation();
-  console.log(data);
   const deleteCat = (id) => {
     if (window.confirm("Are you really want to delete the category?")) {
       removeCategory(id);

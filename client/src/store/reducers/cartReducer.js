@@ -40,20 +40,8 @@ const cartReducer = createSlice({
           const index = state.cart.indexOf(find);
           state.cart[index] = find;
           localStorage.setItem("cart", JSON.stringify(state.cart));
-        } else if (find.quantity >= find.stock || find.quantity >= 20) {
-          if (find.quantity >= 20) {
-            alert("Cannot add more than 20 items.");
-          } else if (find.quantity >= find.stock) {
-            alert("Out of stock.");
-          }
-          find.quantity = Math.min(find.stock, 20);
-          state.items += find.quantity - find.quantity;
-          state.total +=
-            (find.quantity - find.quantity) *
-            discount(find.price, find.discount);
-          const index = state.cart.indexOf(find);
-          state.cart[index] = find;
-          localStorage.setItem("cart", JSON.stringify(state.cart));
+        } else {
+          alert("Hết hàng trong kho!");
         }
       }
     },

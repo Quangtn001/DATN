@@ -111,6 +111,7 @@ class PaymentController {
               quantities: ctr.quantity,
               address: data.customer_details.address,
               review: reviewStatus,
+              paymentMethod: "Online with card",
             });
 
             const product = await ProductModel.findOne({ _id: ctr._id });

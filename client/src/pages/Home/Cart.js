@@ -13,9 +13,8 @@ import {
   removeItem,
 } from "../../store/reducers/cartReducer";
 import { Helmet } from "react-helmet";
-// import { Link } from "react-router-dom";
 import { useSendPaymentMutation } from "../../store/services/paymentService";
-// import Footer from "../../components/Home/Footer";
+
 const Cart = () => {
   const { cart, total } = useSelector((state) => state.cartReducer);
   const { userToken, user } = useSelector((state) => state.authReducer);
@@ -47,7 +46,7 @@ const Cart = () => {
     if (userToken) {
       navigate("/checkout");
     } else {
-      navigate("/login", { state: { redirect: "/checkout" } });
+      navigate("/login");
     }
   };
 
@@ -159,8 +158,6 @@ const Cart = () => {
           </div>
         )}
       </motion.div>
-
-      {/* <Footer /> */}
     </>
   );
 };

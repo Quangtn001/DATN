@@ -44,7 +44,6 @@ const CreateProduct = () => {
     }
   };
   const [createNewProduct, response] = useCProductMutation();
-  console.log("Your response", response);
   const createPro = (e) => {
     e.preventDefault();
     setState({ ...state, description: value });
@@ -55,7 +54,6 @@ const CreateProduct = () => {
     formData.append("image2", state.image2);
     formData.append("image3", state.image3);
     createNewProduct(formData);
-    console.log(state);
   };
 
   useEffect(() => {

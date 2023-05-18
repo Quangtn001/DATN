@@ -13,8 +13,8 @@ const orderSchema = Schema(
     },
     status: {
       type: String,
-      default: "Not Process",
-      enum: ["Not Process", "Delivered", "Cancle"],
+      default: "Chưa xử lý",
+      enum: ["Chưa xử lý", "Đang xử lý", "Đã giao", "Hủy"],
     },
     received: {
       default: false,
@@ -23,6 +23,9 @@ const orderSchema = Schema(
     review: {
       default: false,
       type: Boolean,
+    },
+    paymentMethod: {
+      type: String,
     },
   },
   { timestamps: true }

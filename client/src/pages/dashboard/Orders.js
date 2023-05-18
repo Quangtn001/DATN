@@ -20,12 +20,12 @@ const Orders = () => {
               <table className="dashboard-table">
                 <thead>
                   <tr className="dashboard-tr">
-                    <th className="dashboard-th">title</th>
-                    <th className="dashboard-th">quantities</th>
-                    <th className="dashboard-th">image</th>
-                    <th className="dashboard-th">received</th>
-                    <th className="dashboard-th">Status</th>
-                    <th className="dashboard-th">details</th>
+                    <th className="dashboard-th">Tên</th>
+                    <th className="dashboard-th">Số lượng</th>
+                    <th className="dashboard-th">Hình ảnh</th>
+                    <th className="dashboard-th">Tình trạng nhận</th>
+                    <th className="dashboard-th">Tình trạng đơn</th>
+                    <th className="dashboard-th">Chi tiết</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -48,10 +48,12 @@ const Orders = () => {
                       </td>
                       <td
                         className={`${
-                          order.status === "Not Process"
+                          order.status === "Chưa xử lý"
                             ? "text-red-600"
-                            : order.status === "Cancel"
+                            : order.status === "Hủy"
                             ? "text-red-600"
+                            : order.status === "Đang xử lý"
+                            ? "text-blue-600"
                             : "text-green-600"
                         } dashboard-td font-medium`}
                       >
@@ -62,7 +64,7 @@ const Orders = () => {
                           to={`/dashboard/order-details/${order._id}`}
                           className="btn btn-warning bg-indigo-600 text-xs font-bold"
                         >
-                          details
+                          Chi tiết
                         </Link>
                       </td>
                     </tr>
@@ -78,7 +80,7 @@ const Orders = () => {
             />
           </>
         ) : (
-          "No order"
+          "Không có đơn hàng nào!"
         )
       ) : (
         <Spinner />
