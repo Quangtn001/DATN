@@ -8,6 +8,7 @@ const HomeProducts = require("../controller/HomeProducts");
 router.post("/create-product", [Authorization.authorized], Product.create);
 router.get("/products/:page", Authorization.authorized, Product.get);
 router.get("/product/:id", Product.getProduct);
+router.get("/random-products-by-category", Product.randomProductsByCategory);
 router.put(
   "/product",
   [Authorization.authorized, productValidations],

@@ -19,9 +19,9 @@ import {
   TabPanel,
 } from "@material-tailwind/react";
 import Reviews from "./Reviews";
+import { Link } from "react-router-dom";
 
 const DetailsCard = ({ product }) => {
-  console.log(product.stock);
   const [quantity, setQuantity] = useState(1);
   const inc = () => {
     if (quantity < product.stock) {
@@ -106,81 +106,98 @@ const DetailsCard = ({ product }) => {
       desc: review,
     },
   ];
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="flex flex-wrap -mx-5"
-    >
-      <Toaster />
-      <div className="w-full order-2 md:order-1 md:w-6/12 p-5">
-        <div className="flex flex-wrap -mx-1">
-          {" "}
-          <DetailsImage image={product.image1} />
-          <DetailsImage image={product.image2} />
-          <DetailsImage image={product.image3} />
-        </div>
-      </div>
-      <div className="w-full order-1 md:order-2 md:w-6/12 p-5">
-        <h1 className="text-2xl font-bold text-gray-900 capitalize mb-3">
-          {product.title}
-        </h1>
-        <hr />
-        <div className="flex justify-between my-5">
-          <span className="text-2xl font-bold text-gray-900">
-            {currency.format(discountPrice, { code: "USD" })}
-          </span>
-          <span className="text-xl line-through text-gray-500">
-            {currency.format(product.price, { code: "USD" })}
-          </span>
-        </div>
-        <div className="flex items-center">
-          <div className="flex items-center space-x-2 mb-1">
-            <span>{finalResult}</span>
-            <AiFillStar color="orange" />
-            <span>({total})</span>
-          </div>
-        </div>
-        <div className="flex -mx-3 flex-col">
-          <div className="w-full sm:w-6/12 p-3">
-            <Quantity quantity={quantity} inc={inc} dec={dec} />
-          </div>
-          <div className="w-full sm:w-6/12 p-3">
-            <button className="btn btn-indigo" onClick={addToCart}>
-              Mua ngay
-            </button>
-          </div>
-        </div>
 
-        <Tabs value={activeTab}>
-          <TabsHeader
-            className="rounded-none border-b border-blue-gray-50 bg-transparent p-0 mt-7"
-            indicatorProps={{
-              className:
-                "bg-transparent border-b-2 border-blue-500 shadow-none rounded-none",
-            }}
-          >
-            {data.map(({ label, value }) => (
-              <Tab
-                key={value}
-                value={value}
-                onClick={() => setActiveTab(value)}
-                className={activeTab === value ? "text-blue-500 font-bold" : ""}
-              >
-                {label}
-              </Tab>
-            ))}
-          </TabsHeader>
-          <TabsBody>
-            {data.map(({ value, desc }) => (
-              <TabPanel key={value} value={value}>
-                {desc}
-              </TabPanel>
-            ))}
-          </TabsBody>
-        </Tabs>
+  return (
+    <>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="flex flex-wrap -mx-5"
+      >
+        <Toaster />
+        <div className="w-full order-2 md:order-1 md:w-6/12 p-5">
+          <div className="flex flex-wrap -mx-1">
+            {" "}
+            <DetailsImage image={product.image1} />
+            <DetailsImage image={product.image2} />
+            <DetailsImage image={product.image3} />
+          </div>
+        </div>
+        <div className="w-full order-1 md:order-2 md:w-6/12 p-5">
+          <h1 className="text-2xl font-bold text-gray-900 capitalize mb-3">
+            {product.title}
+          </h1>
+          <hr />
+          <div className="flex justify-between my-5">
+            <span className="text-2xl font-bold text-gray-900">
+              {currency.format(discountPrice, { code: "USD" })}
+            </span>
+            <span className="text-xl line-through text-gray-500">
+              {currency.format(product.price, { code: "USD" })}
+            </span>
+          </div>
+          <div className="flex items-center">
+            <div className="flex items-center space-x-2 mb-1">
+              <span>{finalResult}</span>
+              <AiFillStar color="orange" />
+              <span>({total})</span>
+            </div>
+          </div>
+          <div className="flex -mx-3 flex-col">
+            <div className="w-full sm:w-6/12 p-3">
+              <Quantity quantity={quantity} inc={inc} dec={dec} />
+            </div>
+            <div className="w-full sm:w-6/12 p-3">
+              <button className="btn btn-indigo" onClick={addToCart}>
+                Mua ngay
+              </button>
+            </div>
+          </div>
+
+          <Tabs value={activeTab}>
+            <TabsHeader
+              className="rounded-none border-b border-blue-gray-50 bg-transparent p-0 mt-7"
+              indicatorProps={{
+                className:
+                  "bg-transparent border-b-2 border-blue-500 shadow-none rounded-none",
+              }}
+            >
+              {data.map(({ label, value }) => (
+                <Tab
+                  key={value}
+                  value={value}
+                  onClick={() => setActiveTab(value)}
+                  className={
+                    activeTab === value ? "text-blue-500 font-bold" : ""
+                  }
+                >
+                  {label}
+                </Tab>
+              ))}
+            </TabsHeader>
+            <TabsBody>
+              {data.map(({ value, desc }) => (
+                <TabPanel key={value} value={value}>
+                  {desc}
+                </TabPanel>
+              ))}
+            </TabsBody>
+          </Tabs>
+        </div>
+      </motion.div>
+      <hr />
+      <div className="flex flex-col sm:flex-row items-center justify-between">
+        <h3 className="uppercase mt-5 font-medium text-center sm:text-left">
+          Sản phẩm tương tự
+        </h3>
+        <Link
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-3 sm:mt-0"
+          to={`/cat-products/${product.category}`}
+        >
+          Xem tất cả
+        </Link>
       </div>
-    </motion.div>
+    </>
   );
 };
 

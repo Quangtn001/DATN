@@ -87,6 +87,13 @@ const productService = createApi({
           };
         },
       }),
+      randomProductsByCategory: builder.query({
+        query: (categoryName, perPage = 4) => ({
+          url: `/random-products-by-category`,
+          method: "GET",
+          params: { categoryName, perPage },
+        }),
+      }),
     };
   },
 });
@@ -98,5 +105,6 @@ export const {
   useGetProductQuery,
   useSortProductQuery,
   useAllProductsQuery,
+  useRandomProductsByCategoryQuery,
 } = productService;
 export default productService;

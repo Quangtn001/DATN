@@ -138,7 +138,6 @@ class Product {
               discount,
               stock,
               category,
-
               description,
             },
           }
@@ -182,6 +181,20 @@ class Product {
       return res.status(200).json({ products });
     } catch (error) {
       return res.status(500).json("Server internal error!");
+    }
+  }
+  async randomProductsByCategory(req, res) {
+    const { categoryName, perPage = 4 } = req.query;
+
+    try {
+      const products = await ProductModel.aggregate([
+        { $match: { category: categoryName } },
+        { $sample: { size: parseInt(perPage) } },
+      ]);
+
+      return res.status(200).json({ products });
+    } catch (error) {
+      return res.status(500).json("Internal server error!");
     }
   }
 }

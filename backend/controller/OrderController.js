@@ -77,7 +77,6 @@ class Orders {
           product,
           user,
         });
-        console.log("review created: ", createdReview);
         await OrderModel.findByIdAndUpdate(id, { review: true });
         await ProductModel.findOneAndUpdate(
           { _id: product },
