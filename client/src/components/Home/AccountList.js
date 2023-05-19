@@ -19,18 +19,18 @@ const AccountList = () => {
       </NavLink>
       <NavLink to={`/profile/${user?.id}`} className="account-list">
         <BsPersonCircle size={22} />
-        <span className="account-list-title">My profile</span>
+        <span className="account-list-title">Thông tin cá nhân</span>
       </NavLink>
       <NavLink to="/orders" className="account-list">
         <AiOutlineShoppingCart size={22} />
-        <span className="account-list-title">orders</span>
+        <span className="account-list-title">Đơn hàng</span>
       </NavLink>
       <span
         className="account-list cursor-pointer"
         onClick={() => dispatch(logout("userToken"))}
       >
         <AiOutlineLogout size={22} />
-        <span className="account-list-title">logout</span>
+        <span className="account-list-title">Đăng xuất</span>
       </span>
     </>
   );

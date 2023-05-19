@@ -43,7 +43,7 @@ const Category = () => {
           to="/dashboard/create-category"
           className="btn btn-warning p-4 font-bold"
         >
-          add categories <i className="bi bi-plus"></i>
+          Thêm danh mục <i className="bi bi-plus"></i>
         </Link>
       </ScreenHeader>
       {success && <div className="alert-success">{success}</div>}
@@ -55,13 +55,13 @@ const Category = () => {
                 <thead>
                   <tr className="border-b bg-gray-200 text-left">
                     <th className="p-3 uppercase text-lg font-medium text-black">
-                      name
+                      Tên danh mục
                     </th>
                     <th className="p-3 uppercase text-lg font-medium text-black">
-                      <i className="bi bi-pencil-square"></i> edit
+                      <i className="bi bi-pencil-square"></i> Sửa
                     </th>
                     <th className="p-3 uppercase text-lg font-medium text-black">
-                      <i className="bi bi-trash"></i>delete
+                      <i className="bi bi-trash"></i>Xóa
                     </th>
                   </tr>
                 </thead>

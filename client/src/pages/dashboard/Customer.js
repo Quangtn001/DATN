@@ -54,7 +54,7 @@ const Customer = () => {
   return (
     <Wrapper>
       <ScreenHeader>
-        <h1 className="btn btn-warning font-bold w-48">All customers</h1>
+        <h1 className="btn btn-warning font-bold w-64">Quản lý tài khoản</h1>
       </ScreenHeader>
       {success && <div className="alert-success">{success}</div>}
       {!isFetching ? (

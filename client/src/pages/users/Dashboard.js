@@ -44,7 +44,7 @@ export const Dashboard = () => {
             </div>
             <div className="w-full md:w-8/12 p-6">
               <h1 className="text-4xl font-normal leading-normal mt-0 mb-2 text-zinc-800 bg-white p-4">
-                Well come to " {user?.name} " dashboard
+                Xin chào " {user?.name} " đến với trang cá nhân của HOME DECOR!
               </h1>
             </div>
           </div>

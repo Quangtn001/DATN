@@ -42,7 +42,7 @@ const Products = () => {
           to="/dashboard/create-product"
           className="btn btn-warning p-4 font-bold"
         >
-          Add Products <i className="bi bi-plus"></i>
+          Thêm sản phẩm <i className="bi bi-plus"></i>
         </Link>
       </ScreenHeader>
       <Toaster position="top-right" />
@@ -53,22 +53,22 @@ const Products = () => {
               <thead>
                 <tr className="border-b border-gray-800 text-left">
                   <th className="p-3 uppercase text-xl font-bold text-black">
-                    name
+                    Tên
                   </th>
                   <th className="p-3 uppercase text-xl font-bold text-black">
-                    price
+                    Giá
                   </th>
                   <th className="p-3 uppercase text-xl font-bold text-black">
-                    stock
+                    Số lượng kho
                   </th>
                   <th className="p-3 uppercase text-xl font-bold text-black">
-                    image
+                    Hình ảnh
                   </th>
                   <th className="p-3 uppercase text-xl font-bold text-black">
-                    edit
+                    Sửa
                   </th>
                   <th className="p-3 uppercase text-xl font-bold text-black">
-                    delete
+                    Xóa
                   </th>
                 </tr>
               </thead>
@@ -96,7 +96,7 @@ const Products = () => {
                         to={`/dashboard/edit-product/${product._id}`}
                         className="btn btn-warning"
                       >
-                        edit
+                        Sửa
                       </Link>
                     </td>
                     <td className="p-3 capitalize text-sm font-medium text-black">
@@ -104,7 +104,7 @@ const Products = () => {
                         className="btn btn-danger cursor-pointer"
                         onClick={() => deleteProduct(product._id)}
                       >
-                        delete
+                        Xóa
                       </span>
                     </td>
                   </tr>

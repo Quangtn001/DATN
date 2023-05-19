@@ -11,7 +11,7 @@ const Orders = () => {
   return (
     <Wrapper>
       <ScreenHeader>
-        <p className="text-2xl uppercase font-bold">Orders</p>
+        <p className="text-2xl uppercase font-bold">Quản lý đơn hàng</p>
       </ScreenHeader>
       {!isFetching ? (
         data?.orders?.length > 0 ? (
@@ -44,7 +44,7 @@ const Orders = () => {
                         />
                       </td>
                       <td className="dashboard-td">
-                        {order.received ? "Yes" : "No"}
+                        {order.received ? "Đã nhận" : "Chưa nhận"}
                       </td>
                       <td
                         className={`${
