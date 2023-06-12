@@ -160,7 +160,7 @@ const CreateProduct = () => {
                   >
                     <option value="">Choose category</option>
                     {data?.categories?.map((category) => (
-                      <option value={category.name} key={category._id}>
+                      <option value={category._id} key={category._id}>
                         {category.name}
                       </option>
                     ))}

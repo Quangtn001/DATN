@@ -6,7 +6,6 @@ import { useRandomProductsByCategoryQuery } from "../../store/services/productSe
 const Sameproduct = ({ product }) => {
   const { data: catProductData, isFetching: catProductIsFetching } =
     useRandomProductsByCategoryQuery(product?.category);
-  console.log(catProductData);
 
   return (
     <>

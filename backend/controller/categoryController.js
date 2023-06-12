@@ -1,20 +1,31 @@
 const { validationResult } = require("express-validator");
 const CatgoryModel = require("../models/Category.js");
+const slugify = require("slugify");
+
 class Category {
   async create(req, res) {
     const errors = validationResult(req);
     const { name } = req.body;
+    const slug = slugify(name, { lower: true }); // Tạo slug từ trường "name"
     if (errors.isEmpty()) {
-      const exist = await CatgoryModel.findOne({ name });
-      if (!exist) {
-        await CatgoryModel.create({ name });
+      const existingCategory = await CatgoryModel.findOne({
+        $or: [{ name }, { slug }],
+      });
+
+      if (!existingCategory) {
+        await CatgoryModel.create({ name, slug }); // Thêm slug vào dữ liệu được tạo
+
         return res
           .status(201)
-          .json({ message: "Your category has created successfully!" });
+          .json({ message: "Your category has been created successfully!" });
       } else {
-        return res
-          .status(400)
-          .json({ errors: [{ msg: `${name} category is already exist` }] });
+        let errorMessage = `${name} category is already exist`;
+
+        if (existingCategory.slug === slug) {
+          errorMessage = `Slug '${slug}' is already taken`;
+        }
+
+        return res.status(400).json({ errors: [{ msg: errorMessage }] });
       }
     } else {
       return res.status(400).json({ errors: errors.array() });

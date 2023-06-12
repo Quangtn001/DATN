@@ -4,7 +4,7 @@ import ProductSkeleton from "./ProductSkeleton";
 import ProductCard from "./ProductCard";
 const HomeProduct = ({ category }) => {
   const { data, isFetching } = useCatProductsQuery({
-    name: category.name,
+    slug: category.slug,
   });
   return isFetching ? (
     <ProductSkeleton />

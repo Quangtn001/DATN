@@ -1,7 +1,7 @@
 const ProductModel = require("../models/ProductModel");
 class HomeProducts {
   async catProducts(req, res) {
-    const { name, page, keyword, sort, order } = req.params;
+    const { slug, page, keyword, sort, order } = req.params;
     const perPage = 4;
     const skip = (page - 1) * perPage;
 
@@ -13,8 +13,8 @@ class HomeProducts {
     } else {
       sortQuery = { createdAt: -1 };
     }
-    const options = name
-      ? { category: name }
+    const options = slug
+      ? { category: slug }
       : keyword && { title: { $regex: `${keyword}`, $options: "i" } };
     if (page) {
       try {

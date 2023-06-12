@@ -4,6 +4,7 @@ const { validationResult } = require("express-validator");
 const fs = require("fs");
 const path = require("path");
 const ProductModel = require("../models/ProductModel");
+const CategoryModel = require("../models/Category");
 class Product {
   async create(req, res) {
     const form = formidable({ multiples: true });
@@ -113,6 +114,7 @@ class Product {
     const { id } = req.params;
     try {
       const product = await ProductModel.findOne({ _id: id })
+        .populate("category")
         .populate("reviews")
         .populate({
           path: "reviews",
@@ -181,6 +183,33 @@ class Product {
       return res.status(200).json({ products });
     } catch (error) {
       return res.status(500).json("Server internal error!");
+    }
+  }
+
+  async getProductByCategory(req, res) {
+    try {
+      const { slug } = req.params;
+      const category = await CategoryModel.findOne({ slug });
+      if (!category) {
+        return res.status(404).json({ message: "Không tìm thấy danh mục." });
+      }
+      const count = await ProductModel.find({
+        category: category._id,
+      })
+        .where("stock")
+        .gt(0)
+        .countDocuments();
+      const products = await ProductModel.find({
+        category: category._id,
+      }).populate("reviews");
+      if (products.length === 0) {
+        return res
+          .status(404)
+          .json({ message: "Danh mục này chưa có sản phẩm!" });
+      }
+      return res.status(200).json({ products, count });
+    } catch (error) {
+      return res.status(500).json("Lỗi máy chủ!");
     }
   }
   async randomProductsByCategory(req, res) {

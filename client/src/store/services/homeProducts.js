@@ -10,10 +10,16 @@ const homeProducts = createApi({
       catProducts: builder.query({
         query: (params) => {
           return {
-            url: `cat-products/${params.name}/${params.page}/${params.sort}/${params.order}`,
+            url: `cat-products/${params.slug}/${params.page}/${params.sort}/${params.order}`,
             method: "GET",
           };
         },
+      }),
+      getProductByCategory: builder.query({
+        query: (slug) => ({
+          url: `get-productCat/${slug}`,
+          method: "GET",
+        }),
       }),
       searchProducts: builder.query({
         query: (params) => {
@@ -26,5 +32,9 @@ const homeProducts = createApi({
     };
   },
 });
-export const { useCatProductsQuery, useSearchProductsQuery } = homeProducts;
+export const {
+  useCatProductsQuery,
+  useSearchProductsQuery,
+  useGetProductByCategoryQuery,
+} = homeProducts;
 export default homeProducts;

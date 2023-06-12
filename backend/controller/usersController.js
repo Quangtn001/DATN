@@ -121,33 +121,33 @@ module.exports.forgotPassword = async (req, res) => {
 };
 
 module.exports.resetPassword = async (req, res) => {
-  const { password, token } = req.body;
-  const passwordResetToken = crypto
-    .createHash("sha256")
-    .update(token)
-    .digest("hex");
-  const user = await UserModel.findOne({
-    passwordResetToken,
-    passwordResetExpires: { $gt: Date.now() },
-  });
+  const { password } = req.body;
 
-  if (!user) {
-    return res.status(400).json({
-      errors: [{ msg: `Invalid token` }],
+  // Thực hiện các bước reset mật khẩu
+  try {
+    const user = await UserModel.findById(req.userId); // Lấy thông tin người dùng từ đường dẫn của yêu cầu hoặc thông qua xác thực trước đó
+
+    if (!user) {
+      return res.status(404).json({
+        errors: [{ msg: `User not found` }],
+      });
+    }
+
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    user.password = hashedPassword;
+    user.passwordChangedAt = Date.now();
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Password updated",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      errors: [{ msg: `Something went wrong!` }],
     });
   }
-  const saltRounds = 10;
-  const hashedPassword = await bcrypt.hash(password, saltRounds);
-  user.password = hashedPassword;
-  user.passwordResetToken = undefined;
-  user.passwordResetExpires = undefined;
-  user.passwordChangedAt = Date.now();
-  await user.save();
-
-  return res.status(200).json({
-    success: user ? true : false,
-    message: user ? "Updated password" : "Something went wrong!",
-  });
 };
 
 module.exports.getAUser = async (req, res) => {

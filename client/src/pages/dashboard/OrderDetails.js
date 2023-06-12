@@ -102,7 +102,7 @@ const OrderDetails = () => {
             <span className="text-sm text-gray-800 ml-4">
               {data?.details?.paymentMethod === "COD"
                 ? "Thanh toán khi nhận hàng"
-                : "Thanh toán online"}
+                : "Đã thanh toán"}
             </span>
           </h3>
           {data?.details?.received && (

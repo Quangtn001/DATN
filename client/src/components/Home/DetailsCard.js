@@ -136,11 +136,16 @@ const DetailsCard = ({ product }) => {
               {currency.format(product.price, { code: "USD" })}
             </span>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2 mb-1">
               <span>{finalResult}</span>
               <AiFillStar color="orange" />
               <span>({total})</span>
+            </div>
+            <div className="flex items-center space-x-2 mb-1">
+              <span>Số lượng còn : </span>
+
+              <span className="font-medium">{product.stock}</span>
             </div>
           </div>
           <div className="flex -mx-3 flex-col">

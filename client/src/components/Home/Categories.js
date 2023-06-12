@@ -12,7 +12,7 @@ const Categories = () => {
       </h1>
       {!isFetching ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 mb-10 ">
-          {data.categories.map((category) => (
+          {data?.categories?.map((category) => (
             <Link
               key={category.name}
               to={`/cat-products/${category.name}`}

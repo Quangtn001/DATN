@@ -9,6 +9,7 @@ import Search from "./Search";
 import { toggleSearchBar } from "../../store/reducers/globalReducer";
 import { useAllCategoriesQuery } from "../../store/services/categoryService";
 import { RiMenuLine, RiCloseFill } from "react-icons/ri";
+import ProductList from "./ProductList";
 
 const NavBar = () => {
   const { userToken, user } = useSelector((state) => state.authReducer);
@@ -25,6 +26,7 @@ const NavBar = () => {
   const handleCloseMenu = () => {
     setMobileMenuVisible(false);
   };
+
   return (
     <>
       <nav className="nav">
@@ -33,7 +35,7 @@ const NavBar = () => {
             <Link to="/">
               <img
                 src="/logo.png"
-                className="h-[60px] w-full object-cover"
+                className=" w-[100px] h-full object-cover mt-3"
                 alt="logo"
               />
             </Link>
@@ -51,13 +53,21 @@ const NavBar = () => {
                   <IoMdArrowDropup />
                 )}
                 {isOpen && (
-                  <div className="absolute bg-white shadow-lg top-8 w-[200px] p-5 drop-shadow-lg">
+                  <div className="absolute bg-white top-8 w-[5000px] p-5 flex gap-5 shadow-md">
                     {data.categories.map((item) => (
-                      <div className="p-2 hover:bg-gray-200 shadow-sm text-black font-semibold ">
-                        <Link to={`/cat-products/${item.name}`}>
-                          {item.name}
-                        </Link>
-                      </div>
+                      <ul className=" text-black font-semibold">
+                        <li>
+                          <Link
+                            to={`/cat-products/${item.slug}`}
+                            className="uppercase"
+                          >
+                            {item.name}
+                          </Link>
+                          <ul>
+                            <ProductList slug={item.slug} />
+                          </ul>
+                        </li>
+                      </ul>
                     ))}
                   </div>
                 )}
@@ -75,36 +85,46 @@ const NavBar = () => {
             <ul className="flex items-center justify-center">
               <li className="nav-li cursor-pointer">
                 <FiSearch
-                  size={22}
+                  className="md:text-lg"
                   onClick={() => dispatch(toggleSearchBar())}
                 />
               </li>
               {userToken ? (
-                <li className="nav-li">
+                <li className="nav-li hidden md:block">
                   <Link to="/user" className="nav-link">
                     {user?.name}
                   </Link>
                 </li>
               ) : (
                 <li className="nav-li">
-                  <Link to="/login" className="nav-link">
+                  <Link
+                    to="/login"
+                    className="nav-link text-xs md:text-base whitespace-nowrap"
+                  >
                     Đăng nhập
                   </Link>
                 </li>
               )}
               <li className="nav-li relative">
                 <Link to="/cart">
-                  <BsHandbag size={20} />
+                  <BsHandbag className="text-[16px] md:text-xl" />
                   <span className="nav-circle">{items}</span>
                 </Link>
               </li>
               <li className="nav-li md:hidden cursor-pointer">
-                <RiMenuLine size={22} onClick={toggleMobileMenu} />
+                <RiMenuLine className="text-lg" onClick={toggleMobileMenu} />
               </li>
             </ul>
             {mobileMenuVisible && (
               <div className="absolute top-0 right-0 h-screen w-8/12 bg-white border">
                 <div className="flex flex-col items-center text-black gap-5 w-full pt-10">
+                  <Link to="/">
+                    <img
+                      src="/logo.png"
+                      className=" w-[200px] object-cover"
+                      alt="logo"
+                    />
+                  </Link>
                   <div className="flex items-center cursor-pointer">
                     <p
                       onClick={() => setIsOpen((prev) => !prev)}
@@ -121,17 +141,22 @@ const NavBar = () => {
                   {isOpen && (
                     <div className="bg-white shadow-xl w-[300px] p-5 rounded-lg overflow-y-auto">
                       {data.categories.map((item) => (
-                        <div
+                        <ul
                           key={item.name}
                           className="p-2 hover:bg-gray-200 shadow-sm text-black font-semibold"
                         >
-                          <Link
-                            to={`/cat-products/${item.name}`}
-                            className="py-2 px-6 rounded-md"
-                          >
-                            {item.name}
-                          </Link>
-                        </div>
+                          <li>
+                            <Link
+                              to={`/cat-products/${item.slug}`}
+                              className="py-2 px-6 rounded-md"
+                            >
+                              {item.name}
+                            </Link>
+                            <ul>
+                              <ProductList categoryName={item.name} />
+                            </ul>
+                          </li>
+                        </ul>
                       ))}
                     </div>
                   )}
@@ -148,6 +173,33 @@ const NavBar = () => {
                     Liên hệ
                   </Link>
                   {/* ...add other mobile menu items as needed... */}
+                  <ul className="flex flex-col gap-6 items-center">
+                    <li className="nav-li cursor-pointer">
+                      <FiSearch
+                        size={22}
+                        onClick={() => dispatch(toggleSearchBar())}
+                      />
+                    </li>
+                    {userToken ? (
+                      <li className="nav-li">
+                        <Link to="/user" className="nav-link">
+                          {user?.name}
+                        </Link>
+                      </li>
+                    ) : (
+                      <li className="nav-li">
+                        <Link to="/login" className="nav-link">
+                          Đăng nhập
+                        </Link>
+                      </li>
+                    )}
+                    <li className="nav-li relative">
+                      <Link to="/cart">
+                        <BsHandbag size={20} />
+                        <span className="nav-circle">{items}</span>
+                      </Link>
+                    </li>
+                  </ul>
                 </div>
                 <div className="absolute top-0 cursor-pointer">
                   <RiCloseFill size={30} onClick={handleCloseMenu} />
@@ -157,6 +209,7 @@ const NavBar = () => {
           </div>
         </div>
       </nav>
+
       <Search />
     </>
   );

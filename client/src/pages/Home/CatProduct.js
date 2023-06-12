@@ -1,45 +1,41 @@
 import { Link, useParams } from "react-router-dom";
 import Header from "../../components/Home/Header";
 import NavBar from "../../components/Home/NavBar";
-import { useCatProductsQuery } from "../../store/services/homeProducts";
-import { useAllCategoriesQuery } from "../../store/services/categoryService";
-import Pagination from "../../components/Pagination";
+import { useGetProductByCategoryQuery } from "../../store/services/homeProducts";
+// import { useAllCategoriesQuery } from "../../store/services/categoryService";
+// import Pagination from "../../components/Pagination";
 import ProductSkeleton from "../../components/Home/ProductSkeleton";
 import ProductCard from "../../components/Home/ProductCard";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Home/Footer";
-import { useState } from "react";
+// import { useState } from "react";
 import { Helmet } from "react-helmet";
 
 const CatProduct = () => {
-  const navigate = useNavigate();
-  const { name, page = 1, sort, order } = useParams();
+  // const navigate = useNavigate();
+  // const { slug, page = 1, sort, order } = useParams();
+  const { slug } = useParams();
 
-  const categoryName = useParams().name;
+  // const categoryName = useParams().slug;
   const { data: catProductData, isFetching: catProductIsFetching } =
-    useCatProductsQuery({
-      name,
-      page: parseInt(page),
-      sort,
-      order,
-    });
+    useGetProductByCategoryQuery(slug);
 
-  const { data: allCategoriesData, isFetching: allCategoriesIsFetching } =
-    useAllCategoriesQuery();
+  // const { data: allCategoriesData, isFetching: allCategoriesIsFetching } =
+  //   useAllCategoriesQuery();
 
-  const [category, setCategory] = useState(categoryName);
+  // const [category, setCategory] = useState(categoryName);
 
-  const handleCategoryChange = (e) => {
-    const category = e.target.value;
-    setCategory(category);
-    navigate(`/cat-products/${category}`);
-  };
+  // const handleCategoryChange = (e) => {
+  //   const category = e.target.value;
+  //   setCategory(category);
+  //   navigate(`/cat-products/${category}`);
+  // };
 
-  const handleSort = (e) => {
-    const value = e.target.value;
-    const [sortValue, orderValue] = value.split("-");
-    navigate(`/cat-products/${category}/${page}/${sortValue}/${orderValue}`);
-  };
+  // const handleSort = (e) => {
+  //   const value = e.target.value;
+  //   const [sortValue, orderValue] = value.split("-");
+  //   navigate(`/cat-products/${category}/${page}/${sortValue}/${orderValue}`);
+  // };
 
   return (
     <>
@@ -50,7 +46,7 @@ const CatProduct = () => {
       <NavBar />
 
       <div className="mt-[70px]">
-        <Header>#{name}</Header>
+        <Header>#{slug}</Header>
       </div>
 
       <div className="my-container my-10">
@@ -59,10 +55,10 @@ const CatProduct = () => {
         ) : catProductData?.count > 0 ? (
           <>
             <p className="text-base font-medium text-gray-700">
-              {catProductData?.count} products found in #{name} category
+              {catProductData?.count} products found in #{slug} category
             </p>
 
-            <div className="w-full md:w-5/3  p-5 rounded-lg bg-white">
+            {/* <div className="w-full md:w-5/3  p-5 rounded-lg bg-white">
               <div className="flex items-center justify-between mt-4">
                 <p className="font-medium">Filters</p>
               </div>
@@ -95,7 +91,7 @@ const CatProduct = () => {
                   </select>
                 </div>
               </div>
-            </div>
+            </div> */}
             <hr />
             <div>
               <div className="flex flex-wrap -mx-5">
@@ -104,18 +100,18 @@ const CatProduct = () => {
                 })}
               </div>
             </div>
-            <Pagination
+            {/* <Pagination
               page={parseInt(page)}
               perPage={catProductData.perPage}
               count={catProductData.count}
-              path={`cat-products/${name}`}
+              path={`cat-products/${slug}`}
               theme="light"
-            />
+            /> */}
           </>
         ) : (
           <>
             <p className="alert-danger mb-10">
-              No products found in #{name} category
+              No products found in #{slug} category
             </p>
             <Link to="/" className="btn-dark text-white mt-6">
               Go back home
