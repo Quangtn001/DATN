@@ -7,7 +7,7 @@ import DetailsCard from "../../components/Home/DetailsCard";
 import Loading from "../../components/Home/Loading";
 import { Helmet } from "react-helmet";
 import Footer from "../../components/Home/Footer";
-import SameProduct from "../../components/Home/SameProduct";
+// import SameProduct from "../../components/Home/SameProduct";
 const ProductDetails = () => {
   const { id } = useParams();
   const { data, isFetching } = useGetProductQuery(id);
@@ -30,8 +30,8 @@ const ProductDetails = () => {
               </li>
               <FiChevronRight className="block mx-2" />
               <li className="capitalize text-gray-600">
-                <Link to={`/cat-products/${data.category}`}>
-                  {data.category}
+                <Link to={`/collections/${data.category.slug}`}>
+                  {data.category.name}
                 </Link>
               </li>
               <FiChevronRight className="block mx-2" />
@@ -41,7 +41,7 @@ const ProductDetails = () => {
             </ul>
 
             <DetailsCard product={data} />
-            <SameProduct product={data} />
+            {/* <SameProduct product={data} /> */}
           </>
         )}
       </div>

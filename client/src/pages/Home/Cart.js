@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import NavBar from "../../components/Home/NavBar";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { discount } from "../../utils/discount";
 import currency from "currency-formatter";
@@ -108,12 +108,11 @@ const Cart = () => {
                             }
                           )}
                         </td>
-                        <td className="td">
+                        <td className="td w-4">
                           <Quantity
                             quantity={item.quantity}
                             inc={() => inc(item._id)}
                             dec={() => dec(item._id)}
-                            theme="indigo"
                           />
                         </td>
                         <td className="td font-bold ">{total}</td>

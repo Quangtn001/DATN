@@ -9,6 +9,18 @@ const Sameproduct = ({ product }) => {
 
   return (
     <>
+      <hr />
+      <div className="flex flex-col sm:flex-row items-center justify-between">
+        <h3 className="uppercase mt-5 font-medium text-center sm:text-left">
+          Sản phẩm tương tự
+        </h3>
+        <Link
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-3 sm:mt-0"
+          to={`/cat-products/${product.category}`}
+        >
+          Xem tất cả
+        </Link>
+      </div>
       {!catProductIsFetching ? (
         <div className="flex flex-wrap justify-between">
           {catProductData.products.map((item) => (

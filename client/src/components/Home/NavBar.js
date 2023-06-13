@@ -58,7 +58,7 @@ const NavBar = () => {
                       <ul className=" text-black font-semibold">
                         <li>
                           <Link
-                            to={`/cat-products/${item.slug}`}
+                            to={`/collections/${item.slug}`}
                             className="uppercase"
                           >
                             {item.name}
@@ -147,7 +147,7 @@ const NavBar = () => {
                         >
                           <li>
                             <Link
-                              to={`/cat-products/${item.slug}`}
+                              to={`/collections/${item.slug}`}
                               className="py-2 px-6 rounded-md"
                             >
                               {item.name}

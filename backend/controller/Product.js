@@ -199,15 +199,17 @@ class Product {
         .where("stock")
         .gt(0)
         .countDocuments();
-      const products = await ProductModel.find({
+      const respone = await ProductModel.find({
         category: category._id,
-      }).populate("reviews");
-      if (products.length === 0) {
+      })
+        .populate("reviews")
+        .populate("category");
+      if (respone.length === 0) {
         return res
           .status(404)
           .json({ message: "Danh mục này chưa có sản phẩm!" });
       }
-      return res.status(200).json({ products, count });
+      return res.status(200).json({ products: respone, count });
     } catch (error) {
       return res.status(500).json("Lỗi máy chủ!");
     }

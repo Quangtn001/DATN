@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import DetailsImage from "./DetailsImage";
 import currency from "currency-formatter";
 import { discount } from "../../utils/discount";
 import h2p from "html2plaintext";
@@ -107,101 +106,174 @@ const DetailsCard = ({ product }) => {
     },
   ];
 
+  const reviewImages = [
+    `/images/${product.image1}`,
+    `/images/${product.image2}`,
+    `/images/${product.image3}`,
+  ];
+  const [currentImage, setCurrentImage] = useState(reviewImages[0]);
+
+  const changeImage = (image) => {
+    setCurrentImage(image);
+  };
+
+  const [weight, setWeight] = useState("");
+
+  const handleWeight = (value) => {
+    setWeight(value);
+  };
+
   return (
     <>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="flex flex-wrap -mx-5"
-      >
-        <Toaster />
-        <div className="w-full order-2 md:order-1 md:w-6/12 p-5">
-          <div className="flex flex-wrap -mx-1">
-            {" "}
-            <DetailsImage image={product.image1} />
-            <DetailsImage image={product.image2} />
-            <DetailsImage image={product.image3} />
-          </div>
-        </div>
-        <div className="w-full order-1 md:order-2 md:w-6/12 p-5">
-          <h1 className="text-2xl font-bold text-gray-900 capitalize mb-3">
-            {product.title}
-          </h1>
-          <hr />
-          <div className="flex justify-between my-5">
-            <span className="text-2xl font-bold text-gray-900">
-              {currency.format(discountPrice, { code: "USD" })}
-            </span>
-            <span className="text-xl line-through text-gray-500">
-              {currency.format(product.price, { code: "USD" })}
-            </span>
-          </div>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2 mb-1">
-              <span>{finalResult}</span>
-              <AiFillStar color="orange" />
-              <span>({total})</span>
-            </div>
-            <div className="flex items-center space-x-2 mb-1">
-              <span>Số lượng còn : </span>
-
-              <span className="font-medium">{product.stock}</span>
-            </div>
-          </div>
-          <div className="flex -mx-3 flex-col">
-            <div className="w-full sm:w-6/12 p-3">
-              <Quantity quantity={quantity} inc={inc} dec={dec} />
-            </div>
-            <div className="w-full sm:w-6/12 p-3">
-              <button className="btn btn-indigo" onClick={addToCart}>
-                Mua ngay
-              </button>
-            </div>
-          </div>
-
-          <Tabs value={activeTab}>
-            <TabsHeader
-              className="rounded-none border-b border-blue-gray-50 bg-transparent p-0 mt-7"
-              indicatorProps={{
-                className:
-                  "bg-transparent border-b-2 border-blue-500 shadow-none rounded-none",
-              }}
-            >
-              {data.map(({ label, value }) => (
-                <Tab
-                  key={value}
-                  value={value}
-                  onClick={() => setActiveTab(value)}
-                  className={
-                    activeTab === value ? "text-blue-500 font-bold" : ""
-                  }
-                >
-                  {label}
-                </Tab>
-              ))}
-            </TabsHeader>
-            <TabsBody>
-              {data.map(({ value, desc }) => (
-                <TabPanel key={value} value={value}>
-                  {desc}
-                </TabPanel>
-              ))}
-            </TabsBody>
-          </Tabs>
-        </div>
-      </motion.div>
-      <hr />
-      <div className="flex flex-col sm:flex-row items-center justify-between">
-        <h3 className="uppercase mt-5 font-medium text-center sm:text-left">
-          Sản phẩm tương tự
-        </h3>
-        <Link
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-3 sm:mt-0"
-          to={`/cat-products/${product.category}`}
+      <section className="overflow-hidden bg-white py-11 font-poppins">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="max-w-6xl px-4 py-4 mx-auto lg:py-8 md:px-6"
         >
-          Xem tất cả
-        </Link>
-      </div>
+          <Toaster />
+          <div className="flex flex-wrap -mx-4">
+            <div className="w-full px-4 md:w-1/2 ">
+              <div className="sticky top-0  overflow-hidden ">
+                <div className="relative mb-6 lg:mb-10 lg:h-2/4 ">
+                  <img
+                    src={currentImage}
+                    alt="Review Thumbnail"
+                    className="object-cover w-full h-[500px] "
+                  />
+                </div>
+                <div className="flex-wrap flex ">
+                  {reviewImages.map((image, index) => (
+                    <div
+                      className="w-1/4 p-2 sm:w-1/4"
+                      key={index}
+                      onClick={() => changeImage(image)}
+                    >
+                      <Link className="block border border-blue-300 dark:border-transparent  hover:border-blue-300">
+                        <img
+                          src={image}
+                          alt="Review Thumbnail"
+                          className="object-cover w-full lg:h-20"
+                        />
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="w-full px-4 md:w-1/2 ">
+              <div className="lg:pl-20">
+                <div className="mb-8 ">
+                  <h2 className="max-w-xl mt-2 mb-6 text-2xl font-bold md:text-4xl">
+                    {product.title}
+                  </h2>
+                  <hr />
+                  <div className="flex items-center mb-6">
+                    <span>{finalResult}</span>
+                    <AiFillStar color="orange" />
+                    <p className="text-sm">({total} customer reviews)</p>
+                  </div>
+
+                  <p className="flex gap-2 items-center mb-8 text-4xl font-bold text-gray-700 ">
+                    <span>
+                      {currency.format(discountPrice, { code: "USD" })}
+                    </span>
+                    <span className="text-base font-normal text-gray-500 line-through ">
+                      {currency.format(product.price, { code: "USD" })}
+                    </span>
+                  </p>
+                  <hr />
+                  <p className="text-green-600 dark:text-green-300 ">
+                    {product.stock} in stock
+                  </p>
+                </div>
+                <hr />
+                <div className="flex flex-col gap-5 mb-8">
+                  <h2 className="w-16 text-xl font-bold whitespace-nowrap">
+                    Khối lượng: {weight ? `${weight}g` : ""}
+                  </h2>
+                  <div className="flex flex-wrap gap-3">
+                    <span
+                      className="p-3 border w-13 hover:border-blue-400  hover:text-blue-600 font-medium cursor-pointer"
+                      onClick={() => handleWeight(150)}
+                    >
+                      150g
+                    </span>
+                    <span
+                      className="p-3 border w-13 hover:border-blue-400 hover:text-blue-600 font-medium cursor-pointer "
+                      onClick={() => handleWeight(350)}
+                    >
+                      350g
+                    </span>
+                    <span
+                      className="p-3 border w-13 hover:border-blue-400 hover:text-blue-600 font-medium cursor-pointer "
+                      onClick={() => handleWeight(500)}
+                    >
+                      500g
+                    </span>
+                  </div>
+                </div>
+                <div className="w-32 mb-8 ">
+                  <Quantity
+                    setQuantity={setQuantity}
+                    quantity={quantity}
+                    inc={inc}
+                    dec={dec}
+                    max={product.stock}
+                  />
+                </div>
+                <div className="flex flex-wrap items-center -mx-4 ">
+                  <div className="w-full px-4 mb-4 lg:w-1/2 lg:mb-0">
+                    <button
+                      className="flex items-center justify-center w-full p-4 text-blue-500 border border-blue-500 rounded-md   hover:bg-blue-600 hover:border-blue-600 hover:text-gray-100 font-bold"
+                      onClick={addToCart}
+                    >
+                      Mua Ngay
+                    </button>
+                  </div>
+                  <div className="w-full px-4 mb-4 lg:w-1/2 lg:mb-0">
+                    <button
+                      className="flex items-center justify-center w-full p-4 text-blue-500 border border-blue-500 rounded-md   hover:bg-blue-600 hover:border-blue-600 hover:text-gray-100 font-bold"
+                      onClick={addToCart}
+                    >
+                      Mua Ngay
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <Tabs value={activeTab}>
+                <TabsHeader
+                  className="rounded-none border-b border-blue-gray-50 bg-transparent p-0 mt-7"
+                  indicatorProps={{
+                    className:
+                      "bg-transparent border-b-2 border-blue-500 shadow-none rounded-none",
+                  }}
+                >
+                  {data.map(({ label, value }) => (
+                    <Tab
+                      key={value}
+                      value={value}
+                      onClick={() => setActiveTab(value)}
+                      className={
+                        activeTab === value ? "text-blue-500 font-bold" : ""
+                      }
+                    >
+                      {label}
+                    </Tab>
+                  ))}
+                </TabsHeader>
+                <TabsBody>
+                  {data.map(({ value, desc }) => (
+                    <TabPanel key={value} value={value}>
+                      {desc}
+                    </TabPanel>
+                  ))}
+                </TabsBody>
+              </Tabs>
+            </div>
+          </div>
+        </motion.div>
+      </section>
     </>
   );
 };

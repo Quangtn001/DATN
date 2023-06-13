@@ -8,6 +8,7 @@ import Footer from "../../components/Home/Footer";
 import { Helmet } from "react-helmet";
 export const HomePage = () => {
   const { data, isFetching } = useRandomCategoriesQuery();
+
   return (
     <>
       <Helmet>

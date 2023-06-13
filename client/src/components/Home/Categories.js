@@ -25,7 +25,6 @@ const Categories = () => {
       ) : (
         <Spinner />
       )}
-      <hr className="mb-5" />
     </>
   );
 };

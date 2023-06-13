@@ -42,11 +42,11 @@ const Routing = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:id" element={<ResetPassword />} />
-        <Route path="/cat-products/:slug" element={<CatProduct />} />
-        <Route path="/cat-products/:slug/:page" element={<CatProduct />} />
+        <Route path="/collections/:slug" element={<CatProduct />} />
+        <Route path="/collections/:slug/:page" element={<CatProduct />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/payment-success" element={<PaymentSuccess />} />
-        <Route path="/cat-products/:slug" element={<CatProduct />} />
+
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route
           path="/search-products/:keyword/:page"
